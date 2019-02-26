@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace diplom
 {
+    public class Someclass { }
     class Program
     {
+
         static void Main(string[] args)
         {
+            
         }
     }
 }
