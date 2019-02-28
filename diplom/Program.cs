@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace diplom
 {
-    public class ActivationFunctions<T>
+    public class ActivationFunctions<T> 
     {
         public delegate U ActivationFunction<U>(U[] inputs) where U: T;
         public static U Sigmoid<U>(U[] inputs) where U : T
@@ -46,6 +46,10 @@ namespace diplom
     public class testNeuron : Neuron<double>
     {
         private ActivationFunctions<double>.ActivationFunction<double> activationFunction = ActivationFunctions<double>.Sigmoid;
+        public testNeuron() : base()
+        { }
+        public testNeuron(int numberOfInputs) : base(numberOfInputs)
+        { }
     }
     class Program
     {
@@ -53,6 +57,7 @@ namespace diplom
         {
             testNeuron tn = new testNeuron(13);
             tn.Refresh();
+            tn.Inputs[11] = 2.0;
         }
     }
 }
