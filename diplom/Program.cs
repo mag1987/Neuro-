@@ -7,46 +7,52 @@ using System.Threading.Tasks;
 
 namespace diplom
 {
-    public delegate T ActivationFunction<T>(T[] inputs);
-    /*
-    public class MultiInput<T, Q> where Q : IEnumerable<Input<T>>, IList, new ()
+    public class ActivationFunctions<T>
     {
-        public Q Inputs { get; set; }
-        public MultiInput() 
+        public delegate U ActivationFunction<U>(U[] inputs) where U: T;
+        public static U Sigmoid<U>(U[] inputs) where U : T
         {
-            Inputs = new Q();
-        }
-
-    }
-    */
-    public class ActivationFunctions<T> where T : Neuron<T>
-    {
-        public static T Sigmoid<T>()
-        {
-            return null;
+            return default(U);
         }
     }
-    public class Neuron<T> 
+    public abstract class Neuron<T> 
     {
-        public T[] Inputs { get; set; }
+        public T[] Inputs
+        {
+            get
+            {
+                return Inputs;
+            }
+            set
+            {
+                Inputs = value;
+                Refresh();
+            } 
+        }
         public T Output { get; set; }
-        private F _activationFunction;
-        public Neuron() : this (10)
-        {
-
-        }
+        private ActivationFunctions<T>.ActivationFunction<T> activationFunction;
+        public Neuron() : this (1)
+        {}
         public Neuron(int numberOfInputs)
         {
             Inputs = new T[numberOfInputs];
-            Output = _activationFunction;
-            _activationFunction = ActivationFunction<T>;
+            Output = default(T);
         }
+        public void Refresh()
+        {
+            Output = activationFunction(Inputs);
+        }
+    }
+    public class testNeuron : Neuron<double>
+    {
+        private ActivationFunctions<double>.ActivationFunction<double> activationFunction = ActivationFunctions<double>.Sigmoid;
     }
     class Program
     {
-
         static void Main(string[] args)
         {
+            testNeuron tn = new testNeuron(13);
+            tn.Refresh();
         }
     }
 }
