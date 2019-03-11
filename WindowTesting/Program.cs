@@ -49,6 +49,8 @@ namespace WindowTesting
             //  You can modify this to check to see if you want to cancel the operation, then return a null here
             return true;
         }
+        [DllImport("user32.dll")]
+        public static extern bool PostMessage(IntPtr hWnd, uint msg, uint wParam, uint lParam);
         public static void PrintList(List<IntPtr> children)
         {
             foreach (var child in children)
@@ -59,16 +61,21 @@ namespace WindowTesting
         [STAThread]
         static void Main(string[] args)
         {
+            const uint WM_COMMAND = 0x0111;
             //UIPermission uIPermission = new UIPermission(UIPermissionClipboard.AllClipboard);
             // ---- работает и без него --------------
             
-            string s = Clipboard.GetText(TextDataFormat.Text);
-            Console.WriteLine("s = {0}",s);
-            
-            /* ------------------ code is valid-----------------
+            /* ------------------ code is valid-----------------*/
             IntPtr ip = new IntPtr();
-            ip = FindWindow(default(string), "ACD/ChemSketch - [noname01.sk2]");
+            ip = FindWindow(default(string), "Table of peaks");
             Console.WriteLine("Окно найдено {0}",ip.ToString());
+
+            Clipboard.Clear();
+            PostMessage(ip,WM_COMMAND,0x3E8,0);
+            string s = Clipboard.GetText(TextDataFormat.Text);
+            Console.WriteLine("s = {0}", s);
+
+            /*
             PrintList(GetChildWindows(ip));
             */
         }
