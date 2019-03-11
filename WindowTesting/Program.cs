@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using System.Security.Permissions;
 
 namespace WindowTesting
 {
@@ -54,13 +56,21 @@ namespace WindowTesting
                 Console.WriteLine("Элемент {0}", child.ToString());
             }
         }
-        
+        [STAThread]
         static void Main(string[] args)
         {
+            //UIPermission uIPermission = new UIPermission(UIPermissionClipboard.AllClipboard);
+            // ---- работает и без него --------------
+            
+            string s = Clipboard.GetText(TextDataFormat.Text);
+            Console.WriteLine("s = {0}",s);
+            
+            /* ------------------ code is valid-----------------
             IntPtr ip = new IntPtr();
             ip = FindWindow(default(string), "ACD/ChemSketch - [noname01.sk2]");
             Console.WriteLine("Окно найдено {0}",ip.ToString());
             PrintList(GetChildWindows(ip));
+            */
         }
 
     }

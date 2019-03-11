@@ -19,15 +19,24 @@ namespace diplom
     {
         public T[] Inputs
         {
-            get
+            get;
+            /* не работает
             {
                 return Inputs;
             }
-            set
+            */
+            set;
+            /*
             {
-                Inputs = value;
+                
+                for (int i = 0; i < Inputs.Count(); i++)
+                {
+                    Inputs[i] = value[i];
+                }
+                
                 Refresh();
             } 
+            */
         }
         public T Output { get; set; }
         private ActivationFunctions<T>.ActivationFunction<T> activationFunction;
