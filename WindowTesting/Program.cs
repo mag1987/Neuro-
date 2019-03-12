@@ -70,7 +70,7 @@ namespace WindowTesting
             ip = FindWindow(default(string), "Table of peaks");
             Console.WriteLine("Окно найдено {0}",ip.ToString());
 
-            Clipboard.Clear();
+            //Clipboard.Clear();
             PostMessage(ip,WM_COMMAND,0x3E8,0);
             string s = Clipboard.GetText(TextDataFormat.Text);
             Console.WriteLine("s = {0}", s);
