@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Security.Permissions;
+using System.Text.RegularExpressions;
 
 namespace WindowTesting
 {
@@ -75,10 +76,32 @@ namespace WindowTesting
             string s = Clipboard.GetText(TextDataFormat.Text);
             Console.WriteLine("s = {0}", s);
 
+            //string[] singleLines = Regex.Split(s, @"\n");
+            var singleLines = from item in Regex.Split(s, @"\n")
+                     where String.IsNullOrWhiteSpace(item) == false
+                     select item;
+            Console.WriteLine("Number of lines {0}", singleLines.Count());
+
+            List<IEnumerable<string>> wordsInLines = new List<IEnumerable<string>>();
+            foreach (var singleLine in singleLines)
+            {
+                var wordsInLine = from item in Regex.Split(singleLine, @"\s+")
+                                  where String.IsNullOrWhiteSpace(item) == false
+                                  select item;
+                /*
+                int indexOfShift = from item in wordsInLine
+                                   where item.Contains("ppm")
+                                   */
+                wordsInLines.Add(wordsInLine);
+                foreach (var item in wordsInLine)
+                    Console.Write(" {0}", item);
+                Console.Write(" --- Finally {0} elements\n", wordsInLine.Count());
+            }
             /*
             PrintList(GetChildWindows(ip));
             */
         }
 
     }
+
 }
