@@ -14,9 +14,9 @@ namespace WindowTesting
     {
         [DllImport("user32.dll")]
         private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-        
+
         public delegate bool EnumWindowProc(IntPtr hWnd, IntPtr parameter);
-        
+
         // parameter used for a pointer to list
         // True to continue enumerating, false to bail
 
@@ -65,43 +65,64 @@ namespace WindowTesting
             const uint WM_COMMAND = 0x0111;
             //UIPermission uIPermission = new UIPermission(UIPermissionClipboard.AllClipboard);
             // ---- работает и без него --------------
-            
+
             /* ------------------ code is valid-----------------*/
             IntPtr ip = new IntPtr();
             ip = FindWindow(default(string), "Table of peaks");
-            Console.WriteLine("Окно найдено {0}",ip.ToString());
+            Console.WriteLine("Окно найдено {0}", ip.ToString());
 
             //Clipboard.Clear();
-            PostMessage(ip,WM_COMMAND,0x3E8,0);
+            PostMessage(ip, WM_COMMAND, 0x3E8, 0);
             string s = Clipboard.GetText(TextDataFormat.Text);
             Console.WriteLine("s = {0}", s);
 
             //string[] singleLines = Regex.Split(s, @"\n");
-            var singleLines = from item in Regex.Split(s, @"\n")
-                     where String.IsNullOrWhiteSpace(item) == false
-                     select item;
+            var _singleLines = from item in Regex.Split(s, @"\n")
+                              where String.IsNullOrWhiteSpace(item) == false
+                              select item;
+            string[] singleLines = _singleLines.ToArray();
             Console.WriteLine("Number of lines {0}", singleLines.Count());
 
-            List<IEnumerable<string>> wordsInLines = new List<IEnumerable<string>>();
+            List<string[]> wordsInLines = new List<string[]>();
+            int indexOfShift = -1;
             foreach (var singleLine in singleLines)
             {
-                var wordsInLine = from item in Regex.Split(singleLine, @"\s+")
-                                  where String.IsNullOrWhiteSpace(item) == false
-                                  select item;
-                /*
-                int indexOfShift = from item in wordsInLine
-                                   where item.Contains("ppm")
-                                   */
+                var _wordsInLine = from item in Regex.Split(singleLine, @"\s+")
+                                   where String.IsNullOrWhiteSpace(item) == false
+                                   select item;
+                string[] wordsInLine = _wordsInLine.ToArray();
                 wordsInLines.Add(wordsInLine);
+
+                for (int i = 0; i < wordsInLine.Count(); i++)
+                {
+                    if (indexOfShift == -1 && wordsInLine[i].Contains("ppm"))
+                    {
+                        indexOfShift = i;
+                    }
+                }
                 foreach (var item in wordsInLine)
                     Console.Write(" {0}", item);
                 Console.Write(" --- Finally {0} elements\n", wordsInLine.Count());
+                Console.WriteLine("ppm found at {0} position", indexOfShift);
             }
+            string[] chemShifts = new string[singleLines.Count()];
+            int j = 0;
+            foreach (var item in wordsInLines)
+            {
+                chemShifts[j] = item[indexOfShift];
+                j++;
+            }
+            PrintArray(chemShifts);
             /*
             PrintList(GetChildWindows(ip));
             */
         }
-
+        public static void PrintArray(object[] objects)
+        {
+            foreach (var obj in objects)
+            {
+                Console.WriteLine(" {0}", (string)obj);
+            }
+        }
     }
-
 }
