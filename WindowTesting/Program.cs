@@ -105,14 +105,30 @@ namespace WindowTesting
                 Console.Write(" --- Finally {0} elements\n", wordsInLine.Count());
                 Console.WriteLine("ppm found at {0} position", indexOfShift);
             }
-            string[] chemShifts = new string[singleLines.Count()];
-            int j = 0;
-            foreach (var item in wordsInLines)
+            List<string> chemShifts = new List<string>();
+            foreach (var wordsInLine in wordsInLines)
             {
-                chemShifts[j] = item[indexOfShift];
-                j++;
+                if (wordsInLine[indexOfShift].Contains("ppm") == false)
+                {
+                    chemShifts.Add(wordsInLine[indexOfShift]);
+                }
             }
-            PrintArray(chemShifts);
+            PrintArray(chemShifts.ToArray());
+            // --------------------- ChemShifts obtained --------------
+            List<string> annotations = new List<string>();
+            annotations = NewProperty(chemShifts);
+            PrintArray(annotations.ToArray());
+
+            //--------------- Proceeding with regex -------
+            
+            Console.Write("\nThe string of regex: ");
+            string regexp = Console.ReadLine();
+            Console.Write("\nThe string for replacemrnt to regex: ");
+            string replacement = Console.ReadLine();
+            
+            ProcessProperty(chemShifts,regexp,replacement);
+            PrintArray(chemShifts.ToArray());
+            
             /*
             PrintList(GetChildWindows(ip));
             */
@@ -122,6 +138,23 @@ namespace WindowTesting
             foreach (var obj in objects)
             {
                 Console.WriteLine(" {0}", (string)obj);
+            }
+        }
+        public static List<string> NewProperty(List<string> input)
+        {
+            List<string> output = new List<string>();
+            foreach (var inputItem in input)
+            {
+                Console.Write("For [{0}] item, value \"{1}\" new property is: ", input.IndexOf(inputItem), inputItem);
+                output.Add(Console.ReadLine());
+            }
+            return output;
+        }
+        public static void ProcessProperty(List<string> input, string regex, string pattern)
+        {
+            for(int i =0; i <input.Count; i++)
+            {
+                input[i] = Regex.Replace(input[i], regex, pattern);
             }
         }
     }
