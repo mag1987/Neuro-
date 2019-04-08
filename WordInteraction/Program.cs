@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Office.Interop.Word;
+using System.Runtime.InteropServices;
 
 namespace WordInteraction
 {
@@ -11,13 +12,18 @@ namespace WordInteraction
     {
         static void Main(string[] args)
         {
+            /*
             var wordApp = new Application();
             wordApp.Visible = false;
-            var documents = wordApp.Documents;
+            */
+            Application app = (Application)Marshal.GetActiveObject("Word.Application");
+            var documents = app.Documents;
             foreach (var item in documents)
             {
                 Console.WriteLine("Document is opened");
             }
+            Range rng = app.Selection.Range;
+            rng.Text = "Test string from C#";
             //SelectionInsertText();
         }
         /*
