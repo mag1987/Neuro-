@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "diplom", "diplom\diplom.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowTesting", "WindowTesting\WindowTesting.csproj", "{603F50A6-5EEA-4B17-ABBA-3024A7D574C7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordInteraction", "WordInteraction\WordInteraction.csproj", "{90801AB8-4B62-45DD-A4BE-B8BC06DB85F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{603F50A6-5EEA-4B17-ABBA-3024A7D574C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{603F50A6-5EEA-4B17-ABBA-3024A7D574C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{603F50A6-5EEA-4B17-ABBA-3024A7D574C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90801AB8-4B62-45DD-A4BE-B8BC06DB85F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90801AB8-4B62-45DD-A4BE-B8BC06DB85F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90801AB8-4B62-45DD-A4BE-B8BC06DB85F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90801AB8-4B62-45DD-A4BE-B8BC06DB85F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
