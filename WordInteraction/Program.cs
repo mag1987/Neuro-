@@ -23,7 +23,24 @@ namespace WordInteraction
                 Console.WriteLine("Document is opened");
             }
             Range rng = app.Selection.Range;
-            rng.Text = "Test string from C#";
+            rng.Bold = 1;
+            rng.Text +="Test string1 from C#";
+            rng.Text += "Test string 2";
+            rng.Text += "String 3";
+
+            //rng.Select();
+            rng = app.Selection.Range;
+            rng.Bold = 0;
+            rng.Text ="Test new string from C#";
+
+            /*
+            Selection sel = app.Selection;
+            sel.InsertAfter("1");
+            sel.BoldRun();
+            sel.InsertAfter("2");
+            sel.BoldRun();
+            sel.InsertAfter("3");
+            */
             //SelectionInsertText();
         }
         /*
