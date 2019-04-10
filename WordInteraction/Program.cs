@@ -13,83 +13,28 @@ namespace WordInteraction
         static void Main(string[] args)
         {
             /*
-            var wordApp = new Application();
-            wordApp.Visible = false;
-            */
+             * Range - doesn't move cursor. If many go in backward order
+             * 
+             * Selection - puts text and cursor is moved to the end of the text,
+             *    but need Font.Reset() to clear all formatting
+             * 
+             * Works OK with 1 Word opened, insertion apears in focused document
+             *    (if many)
+             */
+
             Application app = (Application)Marshal.GetActiveObject("Word.Application");
-            var documents = app.Documents;
-            foreach (var item in documents)
-            {
-                Console.WriteLine("Document is opened");
-            }
-            Range rng = app.Selection.Range;
-            //rng.Bold = 1;
-            
-            rng.Text +="Test string1 from C#";
 
-            rng.Text += "Test string 2";
-           
-            rng.FormattedText.Font.Bold = 1;
-            rng.Text += "String 3";
-            //rng.FormattedText.Font.Bold = 0;
+            Selection sel1 = app.Selection;
+            sel1.Font.Bold = 1;
+            sel1.Font.Italic = 1;
+            sel1.TypeText("Text1");
 
-            //rng.Select();
-            Range rng2 = app.Selection.Range;
-            
-            rng2.Text ="Test new string from C#";
-            rng2.Bold = 1;
+            Selection selClear = app.Selection;
+            selClear.Font.Reset();
 
-            
-            Selection sel = app.Selection;
-            sel.TypeText(rng2.Text);
-            //sel.BoldRun();
-            sel.TypeText("2");
-            //sel.BoldRun();
-            
-            sel.TypeText("3 ");
-            
-            //SelectionInsertText();
+            Selection sel2 = app.Selection;
+            sel2.Font.Bold = 0;
+            sel2.TypeText("Text2");
         }
-        /*
-        private static void SelectionInsertText()
-        {
-            Word.Selection currentSelection = Application.Selection;
-
-            // Store the user's current Overtype selection
-            bool userOvertype = Application.Options.Overtype;
-
-            // Make sure Overtype is turned off.
-            if (Application.Options.Overtype)
-            {
-                Application.Options.Overtype = false;
-            }
-
-            // Test to see if selection is an insertion point.
-            if (currentSelection.Type == Word.WdSelectionType.wdSelectionIP)
-            {
-                currentSelection.TypeText("Inserting at insertion point. ");
-                currentSelection.TypeParagraph();
-            }
-            else
-                if (currentSelection.Type == Word.WdSelectionType.wdSelectionNormal)
-            {
-                // Move to start of selection.
-                if (Application.Options.ReplaceSelection)
-                {
-                    object direction = Word.WdCollapseDirection.wdCollapseStart;
-                    currentSelection.Collapse(ref direction);
-                }
-                currentSelection.TypeText("Inserting before a text block. ");
-                currentSelection.TypeParagraph();
-            }
-            else
-            {
-                // Do nothing.
-            }
-
-            // Restore the user's Overtype selection
-            Application.Options.Overtype = userOvertype;
-        }
-        */
     }
 }
