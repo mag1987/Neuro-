@@ -64,5 +64,11 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WordInteraction\WordInteraction.csproj">
+      <Project>{90801ab8-4b62-45dd-a4be-b8bc06db85f4}</Project>
+      <Name>WordInteraction</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

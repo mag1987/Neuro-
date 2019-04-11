@@ -35,6 +35,28 @@ namespace WordInteraction
             Selection sel2 = app.Selection;
             sel2.Font.Bold = 0;
             sel2.TypeText("Text2");
+
+            PrintToWord ToWord = new PrintToWord();
+            ToWord.AtCursor("A one string", 1,1);
+            ToWord.AtCursor("A second string",1,0);
+        }
+    }
+    public class PrintToWord
+    {
+        private Application app { get; set; }
+        public PrintToWord()
+        {
+            app = (Application)Marshal.GetActiveObject("Word.Application");
+        }
+        public void AtCursor(string input, int bold, int italic)
+        {
+            Selection sel = app.Selection;
+            sel.Font.Bold = bold;
+            sel.Font.Italic = italic;
+            sel.TypeText(input);
+
+            Selection selClear = app.Selection;
+            selClear.Font.Reset();
         }
     }
 }

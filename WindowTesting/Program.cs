@@ -8,6 +8,8 @@ using System.Windows.Forms;
 using System.Security.Permissions;
 using System.Text.RegularExpressions;
 
+using WordInteraction;
+
 namespace WindowTesting
 {
     class Program
@@ -128,7 +130,10 @@ namespace WindowTesting
             
             ProcessProperty(chemShifts,regexp,replacement);
             PrintArray(chemShifts.ToArray());
-            
+
+            //------------------- Formatting to Word in cursor position ---------------
+
+
             /*
             PrintList(GetChildWindows(ip));
             */
@@ -157,5 +162,11 @@ namespace WindowTesting
                 input[i] = Regex.Replace(input[i], regex, pattern);
             }
         }
+        private static void ToWordFormatted()
+        {
+            PrintToWord ToWord = new PrintToWord();
+
+        }
+        
     }
 }
