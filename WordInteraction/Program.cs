@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Office.Interop.Word;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using System.Runtime.CompilerServices;
 
 namespace WordInteraction
 {
@@ -43,12 +44,13 @@ namespace WordInteraction
             GroupCollection groupCollection = match.Groups;
 
             PrintToWord ToWord = new PrintToWord();
-            ToWord.AtCursor("(",0,0);
-            ToWord.AtCursor(groupCollection["entier"].Value, 1,1);
-            ToWord.AtCursor(".",0,0);
-            ToWord.AtCursor(groupCollection["fraction"].Value,0,1);
-            ToWord.AtCursor(")", 0, 0);
-
+            ToWord.AtCursor(
+                ("(", 0, 0),
+                (groupCollection["entier"].Value, 1, 1),
+                (".", 0, 0),
+                (groupCollection["fraction"].Value, 0, 1),
+                (")", 0, 0)
+                );
         }
     }
     public class PrintToWord
@@ -58,15 +60,18 @@ namespace WordInteraction
         {
             app = (Application)Marshal.GetActiveObject("Word.Application");
         }
-        public void AtCursor(string input, int bold, int italic)
+        public void AtCursor(params (string input, int bold, int italic)[] formatString)
         {
-            Selection sel = app.Selection;
-            sel.Font.Bold = bold;
-            sel.Font.Italic = italic;
-            sel.TypeText(input);
+            foreach (var item in formatString)
+            {
+                Selection sel = app.Selection;
+                sel.Font.Bold = item.bold;
+                sel.Font.Italic = item.italic;
+                sel.TypeText(item.input);
 
-            Selection selClear = app.Selection;
-            selClear.Font.Reset();
+                Selection selClear = app.Selection;
+                selClear.Font.Reset();
+            }
         }
     }
 }
