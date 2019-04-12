@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Office.Interop.Word;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 
 namespace WordInteraction
 {
@@ -36,9 +37,18 @@ namespace WordInteraction
             sel2.Font.Bold = 0;
             sel2.TypeText("Text2");
 
+            string testString = "18.36";
+            Regex regex = new Regex(@"(?<entier>\d+)\.(?<fraction>\d+)");
+            Match match = regex.Match(testString);
+            GroupCollection groupCollection = match.Groups;
+
             PrintToWord ToWord = new PrintToWord();
-            ToWord.AtCursor("A one string", 1,1);
-            ToWord.AtCursor("A second string",1,0);
+            ToWord.AtCursor("(",0,0);
+            ToWord.AtCursor(groupCollection["entier"].Value, 1,1);
+            ToWord.AtCursor(".",0,0);
+            ToWord.AtCursor(groupCollection["fraction"].Value,0,1);
+            ToWord.AtCursor(")", 0, 0);
+
         }
     }
     public class PrintToWord
