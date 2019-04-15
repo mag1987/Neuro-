@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Runtime.CompilerServices;
 
+
 namespace WordInteraction
 {
     class Program
@@ -51,6 +52,12 @@ namespace WordInteraction
                 (groupCollection["fraction"].Value, 0, 1),
                 (")", 0, 0)
                 );
+            TestMethod(groupCollection, "entier");
+            
+        }
+        public static void TestMethod(GroupCollection gc, string str)
+        {
+            Console.WriteLine(gc[str].Value);
         }
     }
     public class PrintToWord
@@ -71,6 +78,45 @@ namespace WordInteraction
 
                 Selection selClear = app.Selection;
                 selClear.Font.Reset();
+            }
+        }
+        public void AtCursor(string input, string regex, params (string groupName, int bold, int italic)[] formatString )
+        {
+            Regex _regex = new Regex(regex);
+            GroupCollection gc = _regex.Match(input).Groups;
+            var gcNames = _regex.GetGroupNames();
+
+            foreach (var item in formatString)
+            {
+               // TO DO SMTH
+            }
+        }
+        public void AtCursor(params(List<string> input, RegexFormat format)[] formatStrings)
+        {
+            int firstInputLength = formatStrings[0].input.Count;
+            for (int i =0; i<firstInputLength; i++)
+            {
+                foreach (var itemInput in formatStrings)
+                {
+                    Regex _regex = itemInput.format.Regex;
+                    GroupCollection gc = _regex.Match(itemInput.input[i]).Groups;
+                    var gcNames = _regex.GetGroupNames();
+
+                }
+            }
+        }
+    }
+
+    public class RegexFormat
+    {
+        public Regex Regex { get; set; }
+        public List<(string, int, int)> GroupsFormat { get; set; } 
+        public RegexFormat(string regex, params (string groupName, int bold, int italic)[] formatString)
+        {
+            Regex = new Regex(regex);
+            foreach (var item in formatString)
+            {
+                GroupsFormat.Add(item);
             }
         }
     }
