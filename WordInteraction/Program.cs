@@ -52,8 +52,24 @@ namespace WordInteraction
                 (groupCollection["fraction"].Value, 0, 1),
                 (")", 0, 0)
                 );
-            TestMethod(groupCollection, "entier");
-            
+            RegexFormat regForm = new RegexFormat(
+                @"(?<entier>\d+)\.(?<fraction>\d+)",
+                ("(", 0, 0),
+                ("entier", 1, 1),
+                (".", 0, 0),
+                ("fraction", 0, 1),
+                (")", 0, 0)
+                );
+            ToWord.AtCursor(
+                (testString, regForm),
+                ("50.211", regForm)
+                );
+            List<string> list1 = new List<string> {"12.12","34.12" };
+            List<string> list2 = new List<string> { "56.66", "78.66" };
+            ToWord.AtCursor(
+                (list1, regForm),
+                (list2, regForm)
+                );
         }
         public static void TestMethod(GroupCollection gc, string str)
         {
@@ -91,6 +107,29 @@ namespace WordInteraction
                // TO DO SMTH
             }
         }
+        public void AtCursor(params (string input, RegexFormat format)[] formatStrings)
+        {
+            foreach (var itemInput in formatStrings)
+            {
+                Regex _regex = itemInput.format.Regex;
+                GroupCollection gc = _regex.Match(itemInput.input).Groups;
+                var gcNames = _regex.GetGroupNames();
+                foreach (var itemGroups in itemInput.format.GroupsFormat)
+                {
+                    var isGroupName = from name in gcNames
+                                      where name == itemGroups.groupName
+                                      select name;
+                    if (isGroupName.Count() != 0)
+                    {
+                        AtCursor((gc[isGroupName.First()].Value, itemGroups.bold, itemGroups.italic));
+                    }
+                    else
+                    {
+                        AtCursor((itemGroups.groupName, itemGroups.bold, itemGroups.italic));
+                    }
+                }
+            }
+        }
         public void AtCursor(params(List<string> input, RegexFormat format)[] formatStrings)
         {
             int firstInputLength = formatStrings[0].input.Count;
@@ -98,10 +137,7 @@ namespace WordInteraction
             {
                 foreach (var itemInput in formatStrings)
                 {
-                    Regex _regex = itemInput.format.Regex;
-                    GroupCollection gc = _regex.Match(itemInput.input[i]).Groups;
-                    var gcNames = _regex.GetGroupNames();
-
+                    AtCursor((itemInput.input[i], itemInput.format));
                 }
             }
         }
@@ -110,10 +146,11 @@ namespace WordInteraction
     public class RegexFormat
     {
         public Regex Regex { get; set; }
-        public List<(string, int, int)> GroupsFormat { get; set; } 
+        public List<(string groupName, int bold, int italic)> GroupsFormat { get; set; } 
         public RegexFormat(string regex, params (string groupName, int bold, int italic)[] formatString)
         {
             Regex = new Regex(regex);
+            GroupsFormat = new List<(string groupName, int bold, int italic)>();
             foreach (var item in formatString)
             {
                 GroupsFormat.Add(item);
