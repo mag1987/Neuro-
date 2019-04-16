@@ -132,7 +132,24 @@ namespace WindowTesting
             PrintArray(chemShifts.ToArray());
 
             //------------------- Formatting to Word in cursor position ---------------
-
+            RegexFormat numberFormat = new RegexFormat(
+                @"(?<entier>\d+)\.(?<fraction>\d+)",
+                ("entier", 1, 1),
+                (".", 0, 0),
+                ("fraction", 0, 1)
+                );
+            RegexFormat annotationFormat = new RegexFormat(
+                @"(?<letter>[a-zA-Z]+)(?<number>\d+)",
+                (" (", 0, 0),
+                ("letter", 1, 1),
+                ("number", 0, 1),
+                ("), ", 0,0)
+                );
+            PrintToWord ToWord = new PrintToWord();
+            ToWord.AtCursor(
+                (chemShifts, numberFormat),
+                (annotations, annotationFormat)
+                );
 
             /*
             PrintList(GetChildWindows(ip));
@@ -162,11 +179,5 @@ namespace WindowTesting
                 input[i] = Regex.Replace(input[i], regex, pattern);
             }
         }
-        private static void ToWordFormatted()
-        {
-            PrintToWord ToWord = new PrintToWord();
-
-        }
-        
     }
 }
