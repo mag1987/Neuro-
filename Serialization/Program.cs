@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.IO;
+using WordInteraction;
 
 namespace Serialization
 {
@@ -43,6 +44,7 @@ namespace Serialization
         {
             InnerList = new List<string>(strings);
         }
+        public RegexFormat InnerRegex { get; set; }
     }
     public class TestClass
     {
@@ -69,6 +71,7 @@ namespace Serialization
             SecretNumber = 44;
             Inner = new List<InnerClass>();
             Inner.Add(inner);
+            Inner.First().InnerRegex = new RegexFormat("test", ("pattern", 1, 1));
         }
     }
 }

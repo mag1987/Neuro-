@@ -146,7 +146,13 @@ namespace WordInteraction
     public class RegexFormat
     {
         public Regex Regex { get; set; }
-        public List<(string groupName, int bold, int italic)> GroupsFormat { get; set; } 
+        public List<(string groupName, int bold, int italic)> GroupsFormat { get; set; }
+
+        public RegexFormat()
+        {
+            Regex = new Regex("");
+            GroupsFormat = new List<(string groupName, int bold, int italic)>();
+        }
         public RegexFormat(string regex, params (string groupName, int bold, int italic)[] formatString)
         {
             Regex = new Regex(regex);
