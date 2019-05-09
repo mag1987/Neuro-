@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serialization", "Serializat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfTesting", "WpfTesting\WpfTesting.csproj", "{B9EEAF34-B90A-42C7-839D-1216EDE1704D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIChemShift", "UIChemShift\UIChemShift.csproj", "{BA073162-D01B-46FE-A0CB-EA879CD5531A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Experiments", "Experiments\Experiments.csproj", "{E40B79D2-EA1D-4578-8C40-4EC77A2EE230}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{B9EEAF34-B90A-42C7-839D-1216EDE1704D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9EEAF34-B90A-42C7-839D-1216EDE1704D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9EEAF34-B90A-42C7-839D-1216EDE1704D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA073162-D01B-46FE-A0CB-EA879CD5531A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA073162-D01B-46FE-A0CB-EA879CD5531A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA073162-D01B-46FE-A0CB-EA879CD5531A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA073162-D01B-46FE-A0CB-EA879CD5531A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E40B79D2-EA1D-4578-8C40-4EC77A2EE230}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E40B79D2-EA1D-4578-8C40-4EC77A2EE230}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E40B79D2-EA1D-4578-8C40-4EC77A2EE230}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E40B79D2-EA1D-4578-8C40-4EC77A2EE230}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

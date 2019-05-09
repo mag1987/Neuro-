@@ -1,0 +1,81 @@
+﻿<Window x:Class="UIChemShift.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UIChemShift"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        DataContext="{StaticResource ViewModel}"
+        >
+    <Grid>
+        <DataGrid x:Name="ChemShiftsDataGrid"
+                  
+                  HorizontalAlignment="Left"
+                  Height="161" Margin="40,73,0,0"
+                  VerticalAlignment="Top" Width="226"
+                  ItemsSource="{Binding ChemShifts}"
+                  />
+        <Button x:Name="GetDataButton" 
+                Content="Get data ACD" 
+                HorizontalAlignment="Left" 
+                Margin="40,274,0,0" 
+                VerticalAlignment="Top" 
+                Width="92"
+                Command="{Binding GetDataACD}"
+                CommandParameter="{Binding ElementName=ChemShiftsDataGrid}"
+                />
+        <Button x:Name="SaveDataButton" 
+                Content="Save data" 
+                HorizontalAlignment="Left" 
+                Margin="40,315,0,0" 
+                VerticalAlignment="Top" 
+                Width="76"
+                Command="{Binding SaveData}"/>
+        <Button Content="Button"
+                HorizontalAlignment="Left" 
+                Margin="521,274,0,0" 
+                VerticalAlignment="Top" 
+                Width="76"
+                Command="{Binding TestMethod}"/>
+        <TextBox HorizontalAlignment="Left" 
+                 Height="22" 
+                 Margin="521,73,0,0" 
+                 TextWrapping="Wrap" 
+                 Text="" 
+                 VerticalAlignment="Top" 
+                 Width="120"/>
+        <ComboBox x:Name="PropertyComboBox" 
+                  HorizontalAlignment="Left" 
+                  Margin="324,73,0,0" 
+                  VerticalAlignment="Top" 
+                  Width="120"
+                  ItemsSource="{Binding ChemShiftProperties}"/>
+        <!--
+        DataContext="{Binding testCollection}"
+        -->
+            <DataGrid HorizontalAlignment="Left"
+                  Height="113" 
+                  Margin="324,121,0,0" 
+                  VerticalAlignment="Top" 
+                  Width="317"
+                  DataContext="{Binding testCollection}"
+                  ItemsSource="{Binding}"
+                  AutoGenerateColumns="False"
+                  >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Some a"  Binding="{Binding a}" />
+                <DataGridTextColumn Header="Some s" Binding="{Binding s}"/>
+                <DataGridTextColumn Header="Some list" Binding="{Binding list[0]}"/>
+                <DataGridTextColumn Header="list of tuples" Binding="{Binding SomeMethod()}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="LoadDataButton" 
+                Content="Load data" 
+                HorizontalAlignment="Left" 
+                Margin="161,315,0,0" 
+                VerticalAlignment="Top" 
+                Width="75"
+                Command="{Binding LoadData}"/>
+    </Grid>
+</Window>
