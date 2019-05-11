@@ -114,7 +114,6 @@ namespace UIChemShift
                 MessageBox.Show(str);
             });
         }
-        
     }
     public class SomeClass
     {
@@ -122,16 +121,9 @@ namespace UIChemShift
         public string s { get; set; }
         public List<string> list { get; set; }
         public List<(string a, int b)> tuple { get; set; }
-        public string SomeMethod()
+        public List<Properties> properties
         {
-            return "1";
-        }
-        public Properties GetProperties((string x, int y) tuple)
-        {
-            Properties properties = new Properties();
-            properties.a = tuple.x;
-            properties.b = tuple.y;
-            return properties;
+            get;set;
         }
         public SomeClass()
         {
@@ -139,6 +131,12 @@ namespace UIChemShift
             s = "";
             list = new List<string>();
             tuple = new List<(string a, int b)>();
+            properties = new List<Properties>()
+            {
+                new Properties()
+                { a="rrr", b=2},
+                new Properties() { a= "ttt", b=44}
+            };
         }
         public class Properties
         {

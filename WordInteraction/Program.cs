@@ -130,6 +130,37 @@ namespace WordInteraction
                 }
             }
         }
+        public void AtCursor(params FormattedString[] formatStrings)
+        {
+            foreach (var itemInput in formatStrings)
+            {
+                Regex _regex = itemInput.Format.Regex;
+                GroupCollection gc = _regex.Match(itemInput.String).Groups;
+                var gcNames = _regex.GetGroupNames();
+                foreach (var itemGroups in itemInput.Format.GroupsFormat)
+                {
+                    var isGroupName = from name in gcNames
+                                      where name == itemGroups.GroupName
+                                      select name;
+                    if (isGroupName.Count() != 0)
+                    {
+                        AtCursor(
+                            (gc[isGroupName.First()].Value, 
+                            itemGroups.Bold? 1:0, 
+                            itemGroups.Italic? 1:0)
+                            );
+                    }
+                    else
+                    {
+                        AtCursor(
+                            (itemGroups.GroupName,
+                            itemGroups.Bold ? 1 : 0,
+                            itemGroups.Italic ? 1 : 0)
+                            );
+                    }
+                }
+            }
+        }
         public void AtCursor(params(List<string> input, RegexFormat format)[] formatStrings)
         {
             int firstInputLength = formatStrings[0].input.Count;
@@ -139,6 +170,25 @@ namespace WordInteraction
                 {
                     AtCursor((itemInput.input[i], itemInput.format));
                 }
+            }
+        }
+        public void AtCursor(params FormattedStrings[] formattedStrings)
+        {
+            List<string> input = new List<string>();
+            RegexFormat<FormattedPart> format = new RegexFormat<FormattedPart>();
+            foreach (var item in formattedStrings)
+            {
+                input = item.Strings;
+                format = item.Format;
+            }
+            foreach (var item in input)
+            {
+                FormattedString formattedString = new FormattedString()
+                {
+                    String = item,
+                    Format= format
+                };
+                AtCursor(formattedString);
             }
         }
     }
@@ -162,5 +212,53 @@ namespace WordInteraction
                 GroupsFormat.Add(item);
             }
         }
+    }
+    public class RegexFormat<T> where T : FormattedPart
+    {
+        public Regex Regex { get; set; }
+        public List<T> GroupsFormat { get; set; }
+
+        public RegexFormat()
+        {
+            Regex = new Regex("");
+            GroupsFormat = new List<T>();
+        }
+        public RegexFormat(string regex, params T[] formatString)
+        {
+            Regex = new Regex(regex);
+            GroupsFormat = new List<T>();
+            foreach (var item in formatString)
+            {
+                GroupsFormat.Add(item);
+            }
+        }
+    }
+    public class FormattedPart
+    {
+        public string GroupName { get; set; }
+        public bool Bold { get; set; }
+        public bool Italic { get; set; }
+        public FormattedPart()
+        {
+            GroupName = "";
+            Bold = false;
+            Italic = false;
+        }
+        public FormattedPart(string groupName, bool bold, bool italic)
+        {
+            GroupName = groupName;
+            Bold = bold;
+            Italic = italic;
+        }
+    }
+    public class FormattedStrings
+    {
+        public List<string> Strings { get; set; }
+        public RegexFormat<FormattedPart> Format { get; set; }
+    }
+    public class FormattedString
+    {
+        public string String { get; set; }
+        public RegexFormat<FormattedPart> Format { get; set; }
     }
 }

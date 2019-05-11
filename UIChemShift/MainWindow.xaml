@@ -67,7 +67,7 @@
                 <DataGridTextColumn Header="Some a"  Binding="{Binding a}" />
                 <DataGridTextColumn Header="Some s" Binding="{Binding s}"/>
                 <DataGridTextColumn Header="Some list" Binding="{Binding list[0]}"/>
-                <DataGridTextColumn Header="list of tuples" Binding="{Binding SomeMethod()}"/>
+                <DataGridTextColumn Header="list of tuples" Binding="{Binding properties[0].a}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="LoadDataButton" 
