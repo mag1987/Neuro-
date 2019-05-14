@@ -92,6 +92,7 @@ namespace UIChemShift
         public DelegateCommand<DataGrid> SaveData { get; }
         public DelegateCommand<DataGrid> LoadData { get; }
         public DelegateCommand<DataGrid> TestMethod { get; }
+        public DelegateCommand<DataGrid> BuildFormattingDataGrid { get; }
         public ViewModel()
         {
             //_model.PropertyChanged += (s, e) => { RaisePropertyChanged(e.PropertyName); };
@@ -126,6 +127,23 @@ namespace UIChemShift
                 MessageBox.Show(str);
                 */
             });
+            BuildFormattingDataGrid = new DelegateCommand<DataGrid>(dg=> {
+                dg.Columns.Clear();
+                FormattedPart fp = new FormattedPart();
+                foreach (var property in fp.GetType().GetProperties())
+                {
+                    dg.Columns.Add(
+                    new DataGridCheckBoxColumn()
+                    {
+                        Header = property.Name,
+                        Binding = new Binding()
+                        {
+                            Path = new PropertyPath("Formatting.Format.GroupsFormat[0].Bold"),
+                        }
+                    });
+                }
+            });
+
         }
     }
     public class SomeClass
