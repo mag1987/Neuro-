@@ -37,7 +37,7 @@
                 Margin="521,274,0,0" 
                 VerticalAlignment="Top" 
                 Width="76"
-                Command="{Binding TestMethod}"
+                Command="{Binding BuildFormattingDataGrid}"
                 CommandParameter="{Binding ElementName=FormattingDataGrid}"/>
         <TextBox HorizontalAlignment="Left" 
                  Height="22" 

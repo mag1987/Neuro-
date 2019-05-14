@@ -66,7 +66,23 @@ namespace UIChemShift
                         {
                             (a: "ww", b : 23),
                             (a:"aa",b:1)
+                        },
+                        Formatting  = new FormattedStrings()
+                        {
+                            Strings = new List<string>() { "111.133" },
+                            Format = new RegexFormat<FormattedPart>()
+                            {
+                                Regex = new Regex(@"(?<entier>\d+)\.(?<fraction>\d+)"),
+                                GroupsFormat = new List<FormattedPart>()
+                                {
+                                new FormattedPart(){ GroupName = "entier" , Bold = true, Italic = true},
+                                new FormattedPart(){ GroupName = "--" , Bold = false, Italic = false},
+                                new FormattedPart(){ GroupName = "++" , Bold = true, Italic = true},
+                                new FormattedPart(){ GroupName = "fraction" , Bold = false, Italic = false}
+                                }
+                            }
                         }
+
                     },
                     new SomeClass
                     {
@@ -81,6 +97,21 @@ namespace UIChemShift
                         {
                             (a: "ww", b : 23),
                             (a:"aa",b:1)
+                        },
+                        Formatting  = new FormattedStrings()
+                        {
+                            Strings = new List<string>() { "111.133" },
+                            Format = new RegexFormat<FormattedPart>()
+                            {
+                                Regex = new Regex(@"(?<entier>\d+)\.(?<fraction>\d+)"),
+                                GroupsFormat = new List<FormattedPart>()
+                                {
+                                new FormattedPart(){ GroupName = "entier" , Bold = false, Italic = true},
+                                new FormattedPart(){ GroupName = "--" , Bold = false, Italic = false},
+                                new FormattedPart(){ GroupName = "++" , Bold = true, Italic = true},
+                                new FormattedPart(){ GroupName = "fraction" , Bold = false, Italic = false}
+                                }
+                            }
                         }
                     }
                 };
@@ -115,7 +146,7 @@ namespace UIChemShift
                         Header = (string)fp.GetType().GetProperty(nameof(fp.Bold)).Name,
                         Binding = new Binding()
                         {
-                            Path = new PropertyPath("Formatting.Format.GroupsFormat[1].Bold"),
+                            Path = new PropertyPath("Formatting.Format.GroupsFormat[1].Bold")
                         }
                     });
                 /*
@@ -130,18 +161,39 @@ namespace UIChemShift
             BuildFormattingDataGrid = new DelegateCommand<DataGrid>(dg=> {
                 dg.Columns.Clear();
                 FormattedPart fp = new FormattedPart();
-                foreach (var property in fp.GetType().GetProperties())
-                {
-                    dg.Columns.Add(
-                    new DataGridCheckBoxColumn()
+                /*
+                dg.DataContext = testCollection;
+                dg.ItemsSource = from x in testCollection
+
+                                 select x;
+                */
+                dg.Columns.Add(
+                    new DataGridTextColumn()
                     {
-                        Header = property.Name,
+                        Header = "Group/Fragment",
                         Binding = new Binding()
                         {
-                            Path = new PropertyPath("Formatting.Format.GroupsFormat[0].Bold"),
+                            Path = new PropertyPath("Formatting.Format.GroupsFormat[0].GroupName" )
                         }
                     });
-                }
+                dg.Columns.Add(
+                    new DataGridCheckBoxColumn()
+                    {
+                        Header = "Bold",
+                        Binding = new Binding()
+                        {
+                            Path = new PropertyPath("Formatting.Format.GroupsFormat[0].Bold")
+                        }
+                    });
+                dg.Columns.Add(
+                    new DataGridCheckBoxColumn()
+                    {
+                        Header = "Italic",
+                        Binding = new Binding()
+                        {
+                            Path = new PropertyPath("Formatting.Format.GroupsFormat[0].Italic")
+                        }
+                    });
             });
 
         }
@@ -163,21 +215,7 @@ namespace UIChemShift
             s = "";
             list = new List<string>();
             tuple = new List<(string a, int b)>();
-            Formatting = new FormattedStrings()
-            {
-                Strings = new List<string>() { "111.133" },
-                Format = new RegexFormat<FormattedPart>()
-                {
-                    Regex = new Regex(@"(?<entier>\d+)\.(?<fraction>\d+)"),
-                    GroupsFormat = new List<FormattedPart>()
-                        {
-                            new FormattedPart(){ GroupName = "entier" , Bold = true, Italic = true},
-                            new FormattedPart(){ GroupName = "--" , Bold = false, Italic = false},
-                            new FormattedPart(){ GroupName = "++" , Bold = true, Italic = true},
-                            new FormattedPart(){ GroupName = "fraction" , Bold = false, Italic = false}
-                        }
-                }
-            };
+            
 
             properties = new List<Properties>()
             {

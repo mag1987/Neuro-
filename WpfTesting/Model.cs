@@ -49,11 +49,11 @@ namespace WpfTesting
             var row = dt.NewRow();
             row.ItemArray = new string[]
             {
-                //tc.List1[0], tc.List2[0], tc.Number.ToString()
-                "12"
+                tc.List1[0], tc.List2[0], tc.Number.ToString()
+                
             };
             dt.Rows.Add(row);
-            return ds;
+            return ds.Tables[0];
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
