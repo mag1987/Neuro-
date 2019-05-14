@@ -11,6 +11,8 @@ using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using System.Windows.Data;
 using System.Reflection;
+using WordInteraction;
+using System.Text.RegularExpressions;
 
 namespace UIChemShift
 {
@@ -105,13 +107,24 @@ namespace UIChemShift
             });
 
             TestMethod = new DelegateCommand<DataGrid>(dg => {
-                ChemShift cs = new ChemShift();
+                FormattedPart fp = new FormattedPart();
+                dg.Columns.Add(
+                    new DataGridCheckBoxColumn()
+                    {
+                        Header = (string)fp.GetType().GetProperty(nameof(fp.Bold)).Name,
+                        Binding = new Binding()
+                        {
+                            Path = new PropertyPath("Formatting.Format.GroupsFormat[1].Bold"),
+                        }
+                    });
+                /*
                 string str = "";
                 foreach (var item in cs.GetType().GetProperties())
                 {
                     str += item.Name + " ";
                 }
                 MessageBox.Show(str);
+                */
             });
         }
     }
@@ -125,12 +138,29 @@ namespace UIChemShift
         {
             get;set;
         }
+        public FormattedStrings Formatting { get; set; }
         public SomeClass()
         {
             a = 0;
             s = "";
             list = new List<string>();
             tuple = new List<(string a, int b)>();
+            Formatting = new FormattedStrings()
+            {
+                Strings = new List<string>() { "111.133" },
+                Format = new RegexFormat<FormattedPart>()
+                {
+                    Regex = new Regex(@"(?<entier>\d+)\.(?<fraction>\d+)"),
+                    GroupsFormat = new List<FormattedPart>()
+                        {
+                            new FormattedPart(){ GroupName = "entier" , Bold = true, Italic = true},
+                            new FormattedPart(){ GroupName = "--" , Bold = false, Italic = false},
+                            new FormattedPart(){ GroupName = "++" , Bold = true, Italic = true},
+                            new FormattedPart(){ GroupName = "fraction" , Bold = false, Italic = false}
+                        }
+                }
+            };
+
             properties = new List<Properties>()
             {
                 new Properties()

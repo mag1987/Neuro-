@@ -37,7 +37,8 @@
                 Margin="521,274,0,0" 
                 VerticalAlignment="Top" 
                 Width="76"
-                Command="{Binding TestMethod}"/>
+                Command="{Binding TestMethod}"
+                CommandParameter="{Binding ElementName=FormattingDataGrid}"/>
         <TextBox HorizontalAlignment="Left" 
                  Height="22" 
                  Margin="521,73,0,0" 
@@ -54,7 +55,8 @@
         <!--
         DataContext="{Binding testCollection}"
         -->
-            <DataGrid HorizontalAlignment="Left"
+            <DataGrid x:Name="FormattingDataGrid"
+                      HorizontalAlignment="Left"
                   Height="113" 
                   Margin="324,121,0,0" 
                   VerticalAlignment="Top" 
@@ -65,9 +67,8 @@
                   >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Some a"  Binding="{Binding a}" />
-                <DataGridTextColumn Header="Some s" Binding="{Binding s}"/>
-                <DataGridTextColumn Header="Some list" Binding="{Binding list[0]}"/>
-                <DataGridTextColumn Header="list of tuples" Binding="{Binding properties[0].a}"/>
+                <DataGridCheckBoxColumn Header="{Binding testCollection.GetType().GetProperties()[0].Name}"  Binding="{Binding Formatting.Format.GroupsFormat[0].Bold}" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Formatting.Format.GroupsFormat[0].GroupName}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="LoadDataButton" 

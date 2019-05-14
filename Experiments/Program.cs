@@ -20,6 +20,7 @@ namespace Experiments
             {
                 Console.WriteLine(item.Name);
             }
+            Console.WriteLine( cs.GetType().GetProperty(nameof(cs.Value)).Name);
         }
     }
 }

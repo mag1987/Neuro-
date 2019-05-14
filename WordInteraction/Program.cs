@@ -70,6 +70,22 @@ namespace WordInteraction
                 (list1, regForm),
                 (list2, regForm)
                 );
+            ToWord.AtCursor(
+                new FormattedStrings()
+                {
+                    Strings = new List<string>() {"111.133" },
+                    Format = new RegexFormat<FormattedPart>()
+                    {
+                        Regex = new Regex(@"(?<entier>\d+)\.(?<fraction>\d+)"),
+                        GroupsFormat = new List<FormattedPart>()
+                        {
+                            new FormattedPart(){ GroupName = "entier" , Bold = true, Italic = true},
+                            new FormattedPart(){ GroupName = "--" , Bold = false, Italic = false},
+                            new FormattedPart(){ GroupName = "++" , Bold = true, Italic = true},
+                            new FormattedPart(){ GroupName = "fraction" , Bold = false, Italic = false}
+                        }
+                    }
+                });
         }
         public static void TestMethod(GroupCollection gc, string str)
         {
