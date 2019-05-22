@@ -14,6 +14,8 @@ using System.Reflection;
 using WordInteraction;
 using System.Text.RegularExpressions;
 
+using System.Data;
+
 namespace UIChemShift
 {
     class ViewModel : BindableBase
@@ -161,6 +163,9 @@ namespace UIChemShift
             BuildFormattingDataGrid = new DelegateCommand<DataGrid>(dg=> {
                 dg.Columns.Clear();
                 FormattedPart fp = new FormattedPart();
+
+                //ObservableCollection<FormattedPart> fps = new ObservableCollection<FormattedPart>(testCollection.First().Formatting.Format.GroupsFormat);
+                dg.DataContext = testCollection.First().Formatting.Format.GroupsFormat;
                 /*
                 dg.DataContext = testCollection;
                 dg.ItemsSource = from x in testCollection
@@ -173,7 +178,8 @@ namespace UIChemShift
                         Header = "Group/Fragment",
                         Binding = new Binding()
                         {
-                            Path = new PropertyPath("Formatting.Format.GroupsFormat[0].GroupName" )
+                            Path = new PropertyPath("GroupName")
+                            //Path = new PropertyPath("Formatting.Format.GroupsFormat[0].GroupName" )
                         }
                     });
                 dg.Columns.Add(
@@ -182,7 +188,8 @@ namespace UIChemShift
                         Header = "Bold",
                         Binding = new Binding()
                         {
-                            Path = new PropertyPath("Formatting.Format.GroupsFormat[0].Bold")
+                            Path = new PropertyPath("Bold")
+                            //Path = new PropertyPath("Formatting.Format.GroupsFormat[0].Bold")
                         }
                     });
                 dg.Columns.Add(
@@ -191,7 +198,8 @@ namespace UIChemShift
                         Header = "Italic",
                         Binding = new Binding()
                         {
-                            Path = new PropertyPath("Formatting.Format.GroupsFormat[0].Italic")
+                            Path = new PropertyPath("Italic")
+                            //Path = new PropertyPath("Formatting.Format.GroupsFormat[0].Italic")
                         }
                     });
             });
