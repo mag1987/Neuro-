@@ -145,7 +145,7 @@ namespace UIChemShift
                 RaisePropertyChanged("ChemShifts");
                 
             });
-            sayHello = new DelegateCommand(sayHelloMethod);
+            //sayHello = new DelegateCommand(sayHelloMethod);
             TestMethod = new DelegateCommand<DataGrid>(dg => {
                 FormattedPart fp = new FormattedPart();
                 dg.Columns.Add(

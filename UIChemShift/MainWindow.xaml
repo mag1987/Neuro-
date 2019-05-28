@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:mvvm="clr-namespace:MvvmEventBinding;assembly=MvvmEventBinding"
         xmlns:local="clr-namespace:UIChemShift"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
@@ -13,57 +12,56 @@
         <DataGrid x:Name="ChemShiftsDataGrid"
                   
                   HorizontalAlignment="Left"
-                  Height="161" Margin="40,73,0,0"
-                  VerticalAlignment="Top" Width="226"
+                  Height="130" Margin="40,104,0,0"
+                  VerticalAlignment="Top" Width="166"
                   ItemsSource="{Binding ChemShifts}"
                   />
         <Button x:Name="GetDataButton" 
                 Content="Get data ACD" 
                 HorizontalAlignment="Left" 
-                Margin="40,274,0,0" 
+                Margin="40,42,0,0" 
                 VerticalAlignment="Top" 
-                Width="92"
+                Width="166"
                 Command="{Binding GetDataACD}"
-                CommandParameter="{Binding ElementName=ChemShiftsDataGrid}"
+                CommandParameter="{Binding ElementName=ChemShiftsDataGrid}" Height="26"
                 />
         <Button x:Name="SaveDataButton" 
                 Content="Save data" 
                 HorizontalAlignment="Left" 
-                Margin="40,315,0,0" 
+                Margin="40,260,0,0" 
                 VerticalAlignment="Top" 
                 Width="76"
-                Command="{Binding SaveData}"/>
+                Command="{Binding SaveData}" Height="34"/>
         <Button Content="Button"
                 HorizontalAlignment="Left" 
-                Margin="521,274,0,0" 
+                Margin="542,389,0,0" 
                 VerticalAlignment="Top" 
                 Width="76"
                 Command="{Binding BuildFormattingDataGrid}"
                 CommandParameter="{Binding ElementName=FormattingDataGrid}"/>
         <TextBox HorizontalAlignment="Left" 
-                 Height="22" 
-                 Margin="521,73,0,0" 
+                 Height="26" 
+                 Margin="247,73,0,0" 
                  TextWrapping="Wrap" 
                  Text="" 
                  VerticalAlignment="Top" 
-                 Width="120"/>
+                 Width="228"/>
         <ComboBox x:Name="PropertyComboBox" 
                   HorizontalAlignment="Left" 
-                  Margin="324,73,0,0" 
+                  Margin="647,387,0,0" 
                   VerticalAlignment="Top" 
                   Width="120"
                   ItemsSource="{Binding ChemShiftProperties}"
-                  SelectionChanged="{mvvm:EventBinding sayHellos}"
                   />
         <!--
         DataContext="{Binding testCollection}"
         -->
-            <DataGrid x:Name="FormattingDataGrid"
+        <DataGrid x:Name="FormattingDataGrid"
                       HorizontalAlignment="Left"
-                  Height="113" 
-                  Margin="324,121,0,0" 
+                  Height="130" 
+                  Margin="247,104,0,0" 
                   VerticalAlignment="Top" 
-                  Width="317"
+                  Width="228"
                   DataContext="{Binding testCollection}"
                   ItemsSource="{Binding}"
                   AutoGenerateColumns="False"
@@ -77,9 +75,28 @@
         <Button x:Name="LoadDataButton" 
                 Content="Load data" 
                 HorizontalAlignment="Left" 
-                Margin="161,315,0,0" 
+                Margin="131,260,0,0" 
                 VerticalAlignment="Top" 
                 Width="75"
-                Command="{Binding LoadData}"/>
+                Command="{Binding LoadData}" Height="34"/>
+        <Label Content="Value" HorizontalAlignment="Left" Margin="247,42,0,0" VerticalAlignment="Top"/>
+        <Label Content="Assignment" HorizontalAlignment="Left" Margin="501,42,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="26" Margin="501,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="222"/>
+        <DataGrid HorizontalAlignment="Left" Height="130" Margin="501,104,0,0" VerticalAlignment="Top" Width="222"/>
+        <RichTextBox 
+            HorizontalAlignment="Left" 
+            Height="84" Margin="247,260,0,0" 
+            VerticalAlignment="Top" Width="228">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text="RichTextBox"/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="501,260,0,0" VerticalAlignment="Top" Width="222" Height="34"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="501,315,0,0" VerticalAlignment="Top" Width="100" Height="29"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="623,315,0,0" VerticalAlignment="Top" Width="100" Height="29"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="375,42,0,0" VerticalAlignment="Top" Width="100" Height="26"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="623,42,0,0" VerticalAlignment="Top" Width="100" Height="26"/>
     </Grid>
 </Window>
