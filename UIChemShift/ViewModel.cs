@@ -121,6 +121,11 @@ namespace UIChemShift
                 return output;
             }
         }
+        public DelegateCommand sayHello { get; set; }
+        public void sayHelloMethod(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Hallo, " + sender.ToString());
+        }
         public DelegateCommand<DataGrid> GetDataACD { get; }
         public DelegateCommand<DataGrid> SaveData { get; }
         public DelegateCommand<DataGrid> LoadData { get; }
@@ -138,8 +143,9 @@ namespace UIChemShift
             LoadData = new DelegateCommand<DataGrid>(dg => {
                 _model.LoadDataFileDialog();
                 RaisePropertyChanged("ChemShifts");
+                
             });
-
+            sayHello = new DelegateCommand(sayHelloMethod);
             TestMethod = new DelegateCommand<DataGrid>(dg => {
                 FormattedPart fp = new FormattedPart();
                 dg.Columns.Add(
