@@ -15,11 +15,14 @@ using System.Xml.Serialization;
 using System.IO;
 
 using System.Windows.Forms;
+using WindowTesting;
 
 namespace UIChemShift
 {
     public class Model : BindableBase
     {
+        private ChemShiftProvider _provider;
+        private ObservableCollection<ChemShift> _chemShifts { get; set; }
         public ObservableCollection<ChemShift> ChemShifts { get; set; }
         public void TestMethod()
         {
@@ -27,12 +30,31 @@ namespace UIChemShift
         }
         public Model()
         {
+            _provider = new ChemShiftProvider();
+            _chemShifts = new ObservableCollection<ChemShift>();
+            ChemShifts = new ObservableCollection<ChemShift>();
+            /*
             ChemShifts = new ObservableCollection<ChemShift>()
             {
                 new ChemShift("1.23","C1" ),
                 new ChemShift("2.56","C43" ),
                 new ChemShift("0.54","C6" )
             };
+            */
+        }
+        public void UpdateChemShifts()
+        {
+            if (_chemShifts != null)
+            {
+                _chemShifts.Clear();
+            }
+            foreach (var shift in _provider.GetChemShiftsACD())
+            {
+                _chemShifts.Add(
+                    new ChemShift(shift)
+                    );
+            }
+            ChemShifts = _chemShifts;
         }
         public void SaveData()
         {
@@ -78,6 +100,8 @@ namespace UIChemShift
         public string Assignment { get; set; }
 
         public ChemShift() : this ("0.0","")
+        { }
+        public ChemShift(string value) : this(value, assignment:"")
         { }
         public ChemShift(string value, string assignment)
         {

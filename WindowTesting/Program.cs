@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
 using System.Security.Permissions;
 using System.Text.RegularExpressions;
 
@@ -14,13 +11,8 @@ namespace WindowTesting
 {
     class Program
     {
-        [DllImport("user32.dll")]
-        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-
+        /*
         public delegate bool EnumWindowProc(IntPtr hWnd, IntPtr parameter);
-
-        // parameter used for a pointer to list
-        // True to continue enumerating, false to bail
 
         [DllImport("user32.dll")]
         public static extern bool EnumChildWindows(IntPtr parent, EnumWindowProc callback, IntPtr i);
@@ -49,11 +41,9 @@ namespace WindowTesting
                 throw new InvalidCastException("GCHandle Target could not be cast as List<IntPtr>");
             }
             list.Add(handle);
-            //  You can modify this to check to see if you want to cancel the operation, then return a null here
             return true;
         }
-        [DllImport("user32.dll")]
-        public static extern bool PostMessage(IntPtr hWnd, uint msg, uint wParam, uint lParam);
+        
         public static void PrintList(List<IntPtr> children)
         {
             foreach (var child in children)
@@ -61,10 +51,12 @@ namespace WindowTesting
                 Console.WriteLine("Элемент {0}", child.ToString());
             }
         }
+        */
         [STAThread]
         static void Main(string[] args)
         {
-            List<string> chemShifts = GetChemShiftsACD();
+            var provider = new ChemShiftProvider();
+            List<string> chemShifts = provider.GetChemShiftsACD();
             PrintArray(chemShifts.ToArray());
             // --------------------- ChemShifts obtained --------------
             List<string> annotations = new List<string>();
@@ -129,54 +121,6 @@ namespace WindowTesting
                 input[i] = Regex.Replace(input[i], regex, pattern);
             }
         }
-        public static List<string> GetChemShiftsACD()
-        {
-            List<string> chemShifts = new List<string>();
-            const uint WM_COMMAND = 0x0111;
-            IntPtr ip = new IntPtr();
-            ip = FindWindow(default(string), "Table of peaks");
-            Console.WriteLine("Окно найдено {0}", ip.ToString());
-
-            PostMessage(ip, WM_COMMAND, 0x3E8, 0);
-            string s = Clipboard.GetText(TextDataFormat.Text);
-            Console.WriteLine("s = {0}", s);
-
-            var _singleLines = from item in Regex.Split(s, @"\n")
-                               where String.IsNullOrWhiteSpace(item) == false
-                               select item;
-            string[] singleLines = _singleLines.ToArray();
-            Console.WriteLine("Number of lines {0}", singleLines.Count());
-
-            List<string[]> wordsInLines = new List<string[]>();
-            int indexOfShift = -1;
-            foreach (var singleLine in singleLines)
-            {
-                var _wordsInLine = from item in Regex.Split(singleLine, @"\s+")
-                                   where String.IsNullOrWhiteSpace(item) == false
-                                   select item;
-                string[] wordsInLine = _wordsInLine.ToArray();
-                wordsInLines.Add(wordsInLine);
-
-                for (int i = 0; i < wordsInLine.Count(); i++)
-                {
-                    if (indexOfShift == -1 && wordsInLine[i].Contains("ppm"))
-                    {
-                        indexOfShift = i;
-                    }
-                }
-                foreach (var item in wordsInLine)
-                    Console.Write(" {0}", item);
-                Console.Write(" --- Finally {0} elements\n", wordsInLine.Count());
-                Console.WriteLine("ppm found at {0} position", indexOfShift);
-            }
-            foreach (var wordsInLine in wordsInLines)
-            {
-                if (wordsInLine[indexOfShift].Contains("ppm") == false)
-                {
-                    chemShifts.Add(wordsInLine[indexOfShift]);
-                }
-            }
-            return chemShifts;
-        }
+        
     }
 }

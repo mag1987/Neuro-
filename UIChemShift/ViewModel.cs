@@ -135,7 +135,8 @@ namespace UIChemShift
         {
             //_model.PropertyChanged += (s, e) => { RaisePropertyChanged(e.PropertyName); };
             GetDataACD = new DelegateCommand<DataGrid>(dg => {
-                _model.TestMethod();
+                _model.UpdateChemShifts();
+                RaisePropertyChanged("ChemShifts");
             });
             SaveData = new DelegateCommand<DataGrid>(dg => {
                 _model.SaveDataFileDialog();

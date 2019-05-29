@@ -118,6 +118,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WindowTesting\WindowTesting.csproj">
+      <Project>{603f50a6-5eea-4b17-abba-3024a7d574c7}</Project>
+      <Name>WindowTesting</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WordInteraction\WordInteraction.csproj">
       <Project>{90801ab8-4b62-45dd-a4be-b8bc06db85f4}</Project>
       <Name>WordInteraction</Name>
