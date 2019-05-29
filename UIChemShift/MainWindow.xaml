@@ -12,7 +12,7 @@
         <DataGrid x:Name="ChemShiftsDataGrid"
                   
                   HorizontalAlignment="Left"
-                  Height="130" Margin="40,104,0,0"
+                  Height="181" Margin="40,73,0,0"
                   VerticalAlignment="Top" Width="166"
                   ItemsSource="{Binding ChemShifts}"
                   />
@@ -30,7 +30,7 @@
                 HorizontalAlignment="Left" 
                 Margin="40,260,0,0" 
                 VerticalAlignment="Top" 
-                Width="76"
+                Width="82"
                 Command="{Binding SaveData}" Height="34"/>
         <Button Content="Button"
                 HorizontalAlignment="Left" 
@@ -75,14 +75,12 @@
         <Button x:Name="LoadDataButton" 
                 Content="Load data" 
                 HorizontalAlignment="Left" 
-                Margin="131,260,0,0" 
+                Margin="122,260,0,0" 
                 VerticalAlignment="Top" 
-                Width="75"
+                Width="84"
                 Command="{Binding LoadData}" Height="34"/>
-        <Label Content="Value" HorizontalAlignment="Left" Margin="247,42,0,0" VerticalAlignment="Top"/>
-        <Label Content="Assignment" HorizontalAlignment="Left" Margin="501,42,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="26" Margin="501,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="222"/>
-        <DataGrid HorizontalAlignment="Left" Height="130" Margin="501,104,0,0" VerticalAlignment="Top" Width="222"/>
+        <TextBox HorizontalAlignment="Left" Height="26" Margin="501,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="228"/>
+        <DataGrid HorizontalAlignment="Left" Height="130" Margin="501,104,0,0" VerticalAlignment="Top" Width="228"/>
         <RichTextBox 
             HorizontalAlignment="Left" 
             Height="84" Margin="247,260,0,0" 
@@ -93,10 +91,18 @@
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="501,260,0,0" VerticalAlignment="Top" Width="222" Height="34"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="501,315,0,0" VerticalAlignment="Top" Width="100" Height="29"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="623,315,0,0" VerticalAlignment="Top" Width="100" Height="29"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="375,42,0,0" VerticalAlignment="Top" Width="100" Height="26"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="623,42,0,0" VerticalAlignment="Top" Width="100" Height="26"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="501,260,0,0" VerticalAlignment="Top" Width="228" Height="34"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="501,315,0,0" VerticalAlignment="Top" Width="114" Height="29"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="615,315,0,0" VerticalAlignment="Top" Width="114" Height="29"/>
+        <Button Content="Value" HorizontalAlignment="Left" Margin="247,42,0,0" VerticalAlignment="Top" Width="228" Height="26"/>
+        <Button Content="Assignment" HorizontalAlignment="Left" Margin="501,42,0,0" VerticalAlignment="Top" Width="228" Height="26"/>
+        <Button Content="-" HorizontalAlignment="Left" Margin="304,234,0,0" VerticalAlignment="Top" Width="57"/>
+        <Button Content="Up" HorizontalAlignment="Left" Margin="361,234,0,0" VerticalAlignment="Top" Width="57"/>
+        <Button Content="Down" HorizontalAlignment="Left" Margin="418,234,0,0" VerticalAlignment="Top" Width="57"/>
+        <Button Content="+" HorizontalAlignment="Left" Margin="247,234,0,0" VerticalAlignment="Top" Width="57"/>
+        <Button Content="-" HorizontalAlignment="Left" Margin="558,234,0,0" VerticalAlignment="Top" Width="57"/>
+        <Button Content="Up" HorizontalAlignment="Left" Margin="615,234,0,0" VerticalAlignment="Top" Width="57"/>
+        <Button Content="Down" HorizontalAlignment="Left" Margin="672,234,0,0" VerticalAlignment="Top" Width="57"/>
+        <Button Content="+" HorizontalAlignment="Left" Margin="501,234,0,0" VerticalAlignment="Top" Width="57"/>
     </Grid>
 </Window>
