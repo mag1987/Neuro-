@@ -22,6 +22,7 @@ namespace UIChemShift
     {
         private Model _model = new Model();
         public ObservableCollection<ChemShift> ChemShifts => _model.ChemShifts;
+        public FormattedStrings FormattedValues => _model.FormattedValues;
         public ObservableCollection<string> ChemShiftProperties
         {
             get
@@ -35,6 +36,7 @@ namespace UIChemShift
                 return output;
             }
         }
+        /*
         public ObservableCollection<(string a, int b, double c)> testTuples
         {
             get
@@ -121,6 +123,7 @@ namespace UIChemShift
                 return output;
             }
         }
+        */
         public DelegateCommand sayHello { get; set; }
         public void sayHelloMethod(object sender, RoutedEventArgs e)
         {
@@ -131,6 +134,7 @@ namespace UIChemShift
         public DelegateCommand<DataGrid> LoadData { get; }
         public DelegateCommand<DataGrid> TestMethod { get; }
         public DelegateCommand<DataGrid> BuildFormattingDataGrid { get; }
+        public DelegateCommand<DataGrid> GetFormattedValues { get; }
         public ViewModel()
         {
             //_model.PropertyChanged += (s, e) => { RaisePropertyChanged(e.PropertyName); };
@@ -167,18 +171,43 @@ namespace UIChemShift
                 MessageBox.Show(str);
                 */
             });
+            GetFormattedValues = new DelegateCommand<DataGrid>(dg=> {
+                dg.Columns.Clear();
+                _model.GenerateForamttedValues();
+                dg.DataContext = FormattedValues.Format.GroupsFormat;
+                dg.Columns.Add(
+                    new DataGridTextColumn()
+                    {
+                        Header = "Value",
+                        Binding = new Binding()
+                        {
+                            Path = new PropertyPath("GroupName")
+                        }
+                    });
+                dg.Columns.Add(
+                   new DataGridCheckBoxColumn()
+                   {
+                       Header = "Bold",
+                       Binding = new Binding()
+                       {
+                           Path = new PropertyPath("Bold")
+                        }
+                   });
+                dg.Columns.Add(
+                    new DataGridCheckBoxColumn()
+                    {
+                        Header = "Italic",
+                        Binding = new Binding()
+                        {
+                            Path = new PropertyPath("Italic")
+                        }
+                    });
+            });
+            /*
             BuildFormattingDataGrid = new DelegateCommand<DataGrid>(dg=> {
                 dg.Columns.Clear();
                 FormattedPart fp = new FormattedPart();
-
-                //ObservableCollection<FormattedPart> fps = new ObservableCollection<FormattedPart>(testCollection.First().Formatting.Format.GroupsFormat);
                 dg.DataContext = testCollection.First().Formatting.Format.GroupsFormat;
-                /*
-                dg.DataContext = testCollection;
-                dg.ItemsSource = from x in testCollection
-
-                                 select x;
-                */
                 dg.Columns.Add(
                     new DataGridTextColumn()
                     {
@@ -210,6 +239,7 @@ namespace UIChemShift
                         }
                     });
             });
+            */
 
         }
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using Prism.Commands;
@@ -16,6 +17,7 @@ using System.IO;
 
 using System.Windows.Forms;
 using WindowTesting;
+using WordInteraction;
 
 namespace UIChemShift
 {
@@ -24,15 +26,30 @@ namespace UIChemShift
         private ChemShiftProvider _provider;
         private ObservableCollection<ChemShift> _chemShifts { get; set; }
         public ObservableCollection<ChemShift> ChemShifts { get; set; }
+        public FormattedStrings FormattedValues { get; set; }
+        public RegexFormat<FormattedPart> defaultFormat = new RegexFormat<FormattedPart>
+        {
+            Regex = new Regex(@"(?<entier>\d+)\.(?<fraction>\d+)"),
+            GroupsFormat = new List<FormattedPart>()
+            {
+                new FormattedPart(){ GroupName = "entier" , Bold = true, Italic = true},
+                new FormattedPart(){ GroupName = "." , Bold = false, Italic = false},
+                new FormattedPart(){ GroupName = "fraction" , Bold = false, Italic = true},
+            }
+        };
+        /*
         public void TestMethod()
         {
             MessageBox.Show("Hello");
         }
+        */
         public Model()
         {
             _provider = new ChemShiftProvider();
             _chemShifts = new ObservableCollection<ChemShift>();
             ChemShifts = new ObservableCollection<ChemShift>();
+            FormattedValues = new FormattedStrings();
+
             /*
             ChemShifts = new ObservableCollection<ChemShift>()
             {
@@ -41,6 +58,16 @@ namespace UIChemShift
                 new ChemShift("0.54","C6" )
             };
             */
+        }
+        public void GenerateForamttedValues()
+        {
+            List<string> sValues = new List<string>();
+            foreach (var item in _chemShifts)
+            {
+                sValues.Add(item.Value);
+            }
+            FormattedValues.Format = defaultFormat;
+            FormattedValues.Strings = sValues;
         }
         public void UpdateChemShifts()
         {

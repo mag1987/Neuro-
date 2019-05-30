@@ -44,9 +44,11 @@
                  Height="26" 
                  Margin="247,73,0,0" 
                  TextWrapping="Wrap" 
-                 Text="" 
+                 Text=""
                  VerticalAlignment="Top" 
-                 Width="228"/>
+                 Width="228"
+                 
+                 />
         <ComboBox x:Name="PropertyComboBox" 
                   HorizontalAlignment="Left" 
                   Margin="647,387,0,0" 
@@ -63,7 +65,7 @@
                   Margin="247,104,0,0" 
                   VerticalAlignment="Top" 
                   Width="228"
-                  DataContext="{Binding testCollection}"
+                  DataContext="{Binding FormattedValues}"
                   ItemsSource="{Binding}"
                   AutoGenerateColumns="False"
                   >
@@ -93,7 +95,16 @@
             </FlowDocument>
         </RichTextBox>
         <Button Content="Button" HorizontalAlignment="Left" Margin="501,260,0,0" VerticalAlignment="Top" Width="228" Height="34"/>
-        <Button Content="Value" HorizontalAlignment="Left" Margin="247,42,0,0" VerticalAlignment="Top" Width="144" Height="26"/>
+        <Button x:Name="ValueButton" 
+                Content="Value" 
+                HorizontalAlignment="Left" 
+                Margin="247,42,0,0" 
+                VerticalAlignment="Top" 
+                Width="144" 
+                Height="26"
+                Command="{Binding GetFormat}"
+                CommandParameter="{Binding ElementName=FormattingDataGrid}"
+                />
         <Button Content="Assignment" HorizontalAlignment="Left" Margin="501,42,0,0" VerticalAlignment="Top" Width="152" Height="26"/>
         <Button Content="-" HorizontalAlignment="Left" Margin="304,234,0,0" VerticalAlignment="Top" Width="57"/>
         <Button Content="Up" HorizontalAlignment="Left" Margin="361,234,0,0" VerticalAlignment="Top" Width="57"/>
