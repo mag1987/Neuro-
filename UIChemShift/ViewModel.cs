@@ -22,7 +22,7 @@ namespace UIChemShift
     {
         private Model _model = new Model();
         public ObservableCollection<ChemShift> ChemShifts => _model.ChemShifts;
-        public FormattedStrings FormattedValues => _model.FormattedValues;
+        public ObservableCollection<FormattedStrings> FormattedValues => _model.FormattedValues;
         public ObservableCollection<string> ChemShiftProperties
         {
             get
@@ -137,10 +137,10 @@ namespace UIChemShift
         public DelegateCommand<DataGrid> GetFormattedValues { get; }
         public ViewModel()
         {
-            //_model.PropertyChanged += (s, e) => { RaisePropertyChanged(e.PropertyName); };
+            _model.PropertyChanged += (s, e) => { RaisePropertyChanged(e.PropertyName); };
             GetDataACD = new DelegateCommand<DataGrid>(dg => {
                 _model.UpdateChemShifts();
-                RaisePropertyChanged("ChemShifts");
+                //RaisePropertyChanged("ChemShifts");
             });
             SaveData = new DelegateCommand<DataGrid>(dg => {
                 _model.SaveDataFileDialog();
@@ -174,7 +174,7 @@ namespace UIChemShift
             GetFormattedValues = new DelegateCommand<DataGrid>(dg=> {
                 dg.Columns.Clear();
                 _model.GenerateForamttedValues();
-                dg.DataContext = FormattedValues.Format.GroupsFormat;
+                dg.DataContext = FormattedValues[0].Format.GroupsFormat;
                 dg.Columns.Add(
                     new DataGridTextColumn()
                     {

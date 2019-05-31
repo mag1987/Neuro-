@@ -14,7 +14,8 @@
                   HorizontalAlignment="Left"
                   Height="181" Margin="40,73,0,0"
                   VerticalAlignment="Top" Width="166"
-                  ItemsSource="{Binding ChemShifts}"
+                  DataContext="{Binding ChemShifts}"
+                  ItemsSource="{Binding}"
                   />
         <Button x:Name="GetDataButton" 
                 Content="Get ACD data" 
@@ -23,7 +24,7 @@
                 VerticalAlignment="Top" 
                 Width="91"
                 Command="{Binding GetDataACD}"
-                CommandParameter="{Binding ElementName=ChemShiftsDataGrid}"
+                
                 Height="26"
                 />
         <Button x:Name="SaveDataButton" 
@@ -65,9 +66,9 @@
                   Margin="247,104,0,0" 
                   VerticalAlignment="Top" 
                   Width="228"
-                  DataContext="{Binding FormattedValues}"
-                  ItemsSource="{Binding}"
-                  AutoGenerateColumns="False"
+                  DataContext="{Binding FormattedValues[0].Format.GroupsFormat}"
+                  ItemsSource="{Binding FormattedValues[0].Format.GroupsFormat}"
+                  
                   >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Some a"  Binding="{Binding a}" />

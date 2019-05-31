@@ -26,7 +26,7 @@ namespace UIChemShift
         private ChemShiftProvider _provider;
         private ObservableCollection<ChemShift> _chemShifts { get; set; }
         public ObservableCollection<ChemShift> ChemShifts { get; set; }
-        public FormattedStrings FormattedValues { get; set; }
+        public ObservableCollection<FormattedStrings> FormattedValues { get; set; }
         public RegexFormat<FormattedPart> defaultFormat = new RegexFormat<FormattedPart>
         {
             Regex = new Regex(@"(?<entier>\d+)\.(?<fraction>\d+)"),
@@ -48,7 +48,7 @@ namespace UIChemShift
             _provider = new ChemShiftProvider();
             _chemShifts = new ObservableCollection<ChemShift>();
             ChemShifts = new ObservableCollection<ChemShift>();
-            FormattedValues = new FormattedStrings();
+            FormattedValues = new ObservableCollection<FormattedStrings>();
 
             /*
             ChemShifts = new ObservableCollection<ChemShift>()
@@ -62,19 +62,23 @@ namespace UIChemShift
         public void GenerateForamttedValues()
         {
             List<string> sValues = new List<string>();
-            foreach (var item in _chemShifts)
+            foreach (var item in ChemShifts)
             {
                 sValues.Add(item.Value);
             }
-            FormattedValues.Format = defaultFormat;
-            FormattedValues.Strings = sValues;
+            FormattedValues[0].Format = defaultFormat;
+            FormattedValues[0].Strings = sValues;
+            RaisePropertyChanged("FormattedValues");
         }
         public void UpdateChemShifts()
         {
+            /*
             if (_chemShifts != null)
             {
                 _chemShifts.Clear();
             }
+            */
+            _chemShifts.Clear();
             foreach (var shift in _provider.GetChemShiftsACD())
             {
                 _chemShifts.Add(
@@ -82,6 +86,7 @@ namespace UIChemShift
                     );
             }
             ChemShifts = _chemShifts;
+            RaisePropertyChanged("ChemShifts");
         }
         public void SaveData()
         {
