@@ -27,6 +27,20 @@ namespace UIChemShift
         private ObservableCollection<ChemShift> _chemShifts { get; set; }
         public ObservableCollection<ChemShift> ChemShifts { get; set; }
         public ObservableCollection<FormattedStrings> FormattedValues { get; set; }
+
+        private FormattedStrings testFormatStrings = new FormattedStrings();
+        public ObservableCollection<FormattedPart> FormattedParts
+        {
+            get
+            {
+                return new ObservableCollection<FormattedPart>(testFormatStrings.Format.GroupsFormat);
+            }
+            set
+            {
+                testFormatStrings.Format.GroupsFormat = value.ToList();
+            }
+        }
+
         public RegexFormat<FormattedPart> defaultFormat = new RegexFormat<FormattedPart>
         {
             Regex = new Regex(@"(?<entier>\d+)\.(?<fraction>\d+)"),
@@ -49,6 +63,8 @@ namespace UIChemShift
             _chemShifts = new ObservableCollection<ChemShift>();
             ChemShifts = new ObservableCollection<ChemShift>();
             FormattedValues = new ObservableCollection<FormattedStrings>();
+
+            testFormatStrings.Format = defaultFormat;
 
             /*
             ChemShifts = new ObservableCollection<ChemShift>()

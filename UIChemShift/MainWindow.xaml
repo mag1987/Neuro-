@@ -66,15 +66,9 @@
                   Margin="247,104,0,0" 
                   VerticalAlignment="Top" 
                   Width="228"
-                  DataContext="{Binding FormattedValues[0].Format.GroupsFormat}"
-                  ItemsSource="{Binding FormattedValues[0].Format.GroupsFormat}"
-                  
+                  DataContext="{Binding formattedParts}"
+                  ItemsSource="{Binding}"
                   >
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Some a"  Binding="{Binding a}" />
-                <DataGridCheckBoxColumn Header="{Binding testCollection.GetType().GetProperties()[0].Name}"  Binding="{Binding Formatting.Format.GroupsFormat[0].Bold}" />
-                <DataGridTextColumn Header="Name" Binding="{Binding Formatting.Format.GroupsFormat[0].GroupName}"/>
-            </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="LoadDataButton" 
                 Content="Load" 

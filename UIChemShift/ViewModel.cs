@@ -23,6 +23,10 @@ namespace UIChemShift
         private Model _model = new Model();
         public ObservableCollection<ChemShift> ChemShifts => _model.ChemShifts;
         public ObservableCollection<FormattedStrings> FormattedValues => _model.FormattedValues;
+        
+        //test
+        public ObservableCollection<FormattedPart> formattedParts => _model.FormattedParts;
+
         public ObservableCollection<string> ChemShiftProperties
         {
             get
@@ -276,3 +280,10 @@ namespace UIChemShift
         }
     }
 }
+/*
+ * <DataGrid.Columns>
+                <DataGridTextColumn Header="Some a"  Binding="{Binding a}" />
+                <DataGridCheckBoxColumn Header="{Binding testCollection.GetType().GetProperties()[0].Name}"  Binding="{Binding Formatting.Format.GroupsFormat[0].Bold}" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Formatting.Format.GroupsFormat[0].GroupName}"/>
+            </DataGrid.Columns>
+*/
