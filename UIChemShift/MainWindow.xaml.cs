@@ -12,6 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WordInteraction;
+using Prism.Commands;
+using Prism.Mvvm;
+using System.Collections.ObjectModel;
 
 namespace UIChemShift
 {
@@ -23,6 +27,17 @@ namespace UIChemShift
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void AddNewItemOnClick(object sender, RoutedEventArgs e)
+        {
+
+            var t = new ObservableCollection<FormattedPart>()
+            {
+                new FormattedPart("test",true,true)
+            };
+            FormattingDataGrid.DataContext = t;
+            t.Add(new FormattedPart("another",true,false));
         }
     }
 }

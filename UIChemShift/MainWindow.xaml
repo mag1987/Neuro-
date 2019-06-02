@@ -67,7 +67,7 @@
                   VerticalAlignment="Top" 
                   Width="228"
                   DataContext="{Binding formattedParts}"
-                  ItemsSource="{Binding}"
+                  ItemsSource="{Binding}" 
                   >
         </DataGrid>
         <Button x:Name="LoadDataButton" 
@@ -102,16 +102,35 @@
                 />
         <Button Content="Assignment" HorizontalAlignment="Left" Margin="501,42,0,0" VerticalAlignment="Top" Width="152" Height="26"/>
         <Button Content="-" HorizontalAlignment="Left" Margin="304,234,0,0" VerticalAlignment="Top" Width="57"/>
-        <Button Content="Up" HorizontalAlignment="Left" Margin="361,234,0,0" VerticalAlignment="Top" Width="57"/>
+        <Button Content="Up" 
+                HorizontalAlignment="Left" 
+                Margin="361,234,0,0" 
+                VerticalAlignment="Top" 
+                Width="57"
+                Command="{Binding MoveUp}"
+                CommandParameter="{Binding ElementName=FormattingDataGrid}"
+                />
         <Button Content="Down" HorizontalAlignment="Left" Margin="418,234,0,0" VerticalAlignment="Top" Width="57"/>
-        <Button Content="+" HorizontalAlignment="Left" Margin="247,234,0,0" VerticalAlignment="Top" Width="57"/>
+        <Button Content="+" 
+                HorizontalAlignment="Left" 
+                Margin="247,234,0,0" 
+                VerticalAlignment="Top" 
+                Width="57"
+                Click="AddNewItemOnClick"
+                />
         <Button Content="-" HorizontalAlignment="Left" Margin="558,234,0,0" VerticalAlignment="Top" Width="57"/>
         <Button Content="Up" HorizontalAlignment="Left" Margin="615,234,0,0" VerticalAlignment="Top" Width="57"/>
         <Button Content="Down" HorizontalAlignment="Left" Margin="672,234,0,0" VerticalAlignment="Top" Width="57"/>
         <Button Content="+" HorizontalAlignment="Left" Margin="501,234,0,0" VerticalAlignment="Top" Width="57"/>
         <Button Content="Save" HorizontalAlignment="Left" Margin="653,42,0,0" VerticalAlignment="Top" Width="37" Height="26"/>
         <Button Content="Load" HorizontalAlignment="Left" Margin="690,42,0,0" VerticalAlignment="Top" Width="39" Height="26"/>
-        <Button Content="Save" HorizontalAlignment="Left" Margin="391,42,0,0" VerticalAlignment="Top" Width="41" Height="26"/>
+        <Button Content="Save"
+                HorizontalAlignment="Left" 
+                Margin="391,42,0,0" 
+                VerticalAlignment="Top"
+                Width="41" 
+                Height="26"
+                Command="{Binding SaveFormat}"/>
         <Button Content="Load" HorizontalAlignment="Left" Margin="432,42,0,0" VerticalAlignment="Top" Width="43" Height="26"/>
     </Grid>
 </Window>

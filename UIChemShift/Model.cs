@@ -28,7 +28,7 @@ namespace UIChemShift
         public ObservableCollection<ChemShift> ChemShifts { get; set; }
         public ObservableCollection<FormattedStrings> FormattedValues { get; set; }
 
-        private FormattedStrings testFormatStrings = new FormattedStrings();
+        private FormattedStrings testFormatStrings;
         public ObservableCollection<FormattedPart> FormattedParts
         {
             get
@@ -39,6 +39,19 @@ namespace UIChemShift
             {
                 testFormatStrings.Format.GroupsFormat = value.ToList();
             }
+        }
+        public void MoveUp(ObservableCollection<FormattedPart> formattedParts, int index)
+        {
+            if (index >0)
+            {
+                formattedParts.Move(index, index-1);
+                /*
+                var t = formattedParts[index];
+                formattedParts[index] = formattedParts[index-1];
+                formattedParts[index-1] = t;
+                */
+            }
+            //RaisePropertyChanged("FormattedParts");
         }
 
         public RegexFormat<FormattedPart> defaultFormat = new RegexFormat<FormattedPart>
@@ -64,6 +77,7 @@ namespace UIChemShift
             ChemShifts = new ObservableCollection<ChemShift>();
             FormattedValues = new ObservableCollection<FormattedStrings>();
 
+            testFormatStrings = new FormattedStrings();
             testFormatStrings.Format = defaultFormat;
 
             /*
@@ -122,6 +136,21 @@ namespace UIChemShift
                 if (stream != null)
                 {
                     xmlSerializer.Serialize(stream, ChemShifts);
+                    stream.Close();
+                }
+            }
+        }
+        public void SaveFormatFileDialog()
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(FormattedStrings));
+            Stream stream;
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                stream = saveFileDialog.OpenFile();
+                if (stream != null)
+                {
+                    xmlSerializer.Serialize(stream, testFormatStrings);
                     stream.Close();
                 }
             }

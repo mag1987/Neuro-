@@ -25,7 +25,18 @@ namespace UIChemShift
         public ObservableCollection<FormattedStrings> FormattedValues => _model.FormattedValues;
         
         //test
-        public ObservableCollection<FormattedPart> formattedParts => _model.FormattedParts;
+        public ObservableCollection<FormattedPart> formattedParts
+        {
+            get
+            {
+                return _model.FormattedParts;
+            }
+            set
+            {
+                _model.FormattedParts = value;
+            }
+        }
+            //=> _model.FormattedParts;
 
         public ObservableCollection<string> ChemShiftProperties
         {
@@ -139,6 +150,10 @@ namespace UIChemShift
         public DelegateCommand<DataGrid> TestMethod { get; }
         public DelegateCommand<DataGrid> BuildFormattingDataGrid { get; }
         public DelegateCommand<DataGrid> GetFormattedValues { get; }
+
+        public DelegateCommand<DataGrid> MoveUp { get; }
+
+        public DelegateCommand<DataGrid> SaveFormat { get; }
         public ViewModel()
         {
             _model.PropertyChanged += (s, e) => { RaisePropertyChanged(e.PropertyName); };
@@ -153,6 +168,13 @@ namespace UIChemShift
                 _model.LoadDataFileDialog();
                 RaisePropertyChanged("ChemShifts");
                 
+            });
+            SaveFormat = new DelegateCommand<DataGrid>(dg=> {
+                _model.SaveFormatFileDialog();
+            });
+            MoveUp = new DelegateCommand<DataGrid>(dg => {
+                formattedParts.Add(new FormattedPart("empty",true,true));
+                //formattedParts.Move(dg.SelectedIndex, (dg.SelectedIndex-1) );
             });
             //sayHello = new DelegateCommand(sayHelloMethod);
             TestMethod = new DelegateCommand<DataGrid>(dg => {
