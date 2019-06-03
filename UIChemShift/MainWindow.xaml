@@ -102,7 +102,8 @@
                 />
         <Button Content="Assignment" HorizontalAlignment="Left" Margin="501,42,0,0" VerticalAlignment="Top" Width="152" Height="26"/>
         <Button Content="-" HorizontalAlignment="Left" Margin="304,234,0,0" VerticalAlignment="Top" Width="57"/>
-        <Button Content="Up" 
+        <Button x:Name="UpButton" 
+                Content="Up" 
                 HorizontalAlignment="Left" 
                 Margin="361,234,0,0" 
                 VerticalAlignment="Top" 
@@ -111,12 +112,13 @@
                 CommandParameter="{Binding ElementName=FormattingDataGrid}"
                 />
         <Button Content="Down" HorizontalAlignment="Left" Margin="418,234,0,0" VerticalAlignment="Top" Width="57"/>
-        <Button Content="+" 
+        <Button x:Name="AddButton" 
+                Content="+" 
                 HorizontalAlignment="Left" 
                 Margin="247,234,0,0" 
                 VerticalAlignment="Top" 
                 Width="57"
-                Click="AddNewItemOnClick"
+                
                 />
         <Button Content="-" HorizontalAlignment="Left" Margin="558,234,0,0" VerticalAlignment="Top" Width="57"/>
         <Button Content="Up" HorizontalAlignment="Left" Margin="615,234,0,0" VerticalAlignment="Top" Width="57"/>

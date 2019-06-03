@@ -26,18 +26,18 @@ namespace UIChemShift
     {
         public MainWindow()
         {
+            
             InitializeComponent();
         }
-
+        
         private void AddNewItemOnClick(object sender, RoutedEventArgs e)
         {
-
-            var t = new ObservableCollection<FormattedPart>()
-            {
-                new FormattedPart("test",true,true)
-            };
-            FormattingDataGrid.DataContext = t;
+            var t = (ObservableCollection<FormattedPart>)FormattingDataGrid.DataContext;
             t.Add(new FormattedPart("another",true,false));
+            FormattingDataGrid.DataContext = t;
+            ((ObservableCollection<FormattedPart>)FormattingDataGrid.DataContext).Add(
+                new FormattedPart("noch einmal",false,true)
+                );
         }
     }
 }
