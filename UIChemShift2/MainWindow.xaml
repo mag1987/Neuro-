@@ -1,0 +1,138 @@
+﻿<Window x:Class="UIChemShift2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UIChemShift2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        DataContext="{StaticResource ViewModel}"
+        >
+    <Grid>
+        <DataGrid x:Name="ChemShiftsDataGrid"
+                  
+                  HorizontalAlignment="Left"
+                  Height="181" Margin="40,73,0,0"
+                  VerticalAlignment="Top" Width="166"
+                  DataContext="{Binding ChemShifts}"
+                  ItemsSource="{Binding}"
+                  />
+        <Button x:Name="GetDataButton" 
+                Content="Get ACD data" 
+                HorizontalAlignment="Left" 
+                Margin="40,42,0,0" 
+                VerticalAlignment="Top" 
+                Width="91"
+                Command="{Binding GetDataACD}"
+                
+                Height="26"
+                />
+        <Button x:Name="SaveDataButton" 
+                Content="Save" 
+                HorizontalAlignment="Left" 
+                Margin="131,42,0,0" 
+                VerticalAlignment="Top" 
+                Width="37"
+                Command="{Binding SaveData}" Height="26"/>
+        <Button Content="Button"
+                HorizontalAlignment="Left" 
+                Margin="542,389,0,0" 
+                VerticalAlignment="Top" 
+                Width="76"
+                Command="{Binding BuildFormattingDataGrid}"
+                CommandParameter="{Binding ElementName=FormattingDataGrid}"/>
+        <TextBox HorizontalAlignment="Left" 
+                 Height="26" 
+                 Margin="247,73,0,0" 
+                 TextWrapping="Wrap" 
+                 Text=""
+                 VerticalAlignment="Top" 
+                 Width="228"
+                 
+                 />
+        <ComboBox x:Name="PropertyComboBox" 
+                  HorizontalAlignment="Left" 
+                  Margin="647,387,0,0" 
+                  VerticalAlignment="Top" 
+                  Width="120"
+                  ItemsSource="{Binding ChemShiftProperties}"
+                  />
+        <!--
+        DataContext="{Binding testCollection}"
+        -->
+        <DataGrid x:Name="FormattingDataGrid"
+                      HorizontalAlignment="Left"
+                  Height="130" 
+                  Margin="247,104,0,0" 
+                  VerticalAlignment="Top" 
+                  Width="228"
+                  DataContext="{Binding formattedParts}"
+                  ItemsSource="{Binding}" 
+                  >
+        </DataGrid>
+        <Button x:Name="LoadDataButton" 
+                Content="Load" 
+                HorizontalAlignment="Left" 
+                Margin="168,42,0,0" 
+                VerticalAlignment="Top" 
+                Width="38"
+                Command="{Binding LoadData}" Height="26"/>
+        <TextBox HorizontalAlignment="Left" Height="26" Margin="501,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="228"/>
+        <DataGrid HorizontalAlignment="Left" Height="130" Margin="501,104,0,0" VerticalAlignment="Top" Width="228"/>
+        <RichTextBox 
+            HorizontalAlignment="Left" 
+            Height="84" Margin="247,260,0,0" 
+            VerticalAlignment="Top" Width="228">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text="RichTextBox"/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="501,260,0,0" VerticalAlignment="Top" Width="228" Height="34"/>
+        <Button x:Name="ValueButton" 
+                Content="Value" 
+                HorizontalAlignment="Left" 
+                Margin="247,42,0,0" 
+                VerticalAlignment="Top" 
+                Width="144" 
+                Height="26"
+                Command="{Binding GetFormat}"
+                CommandParameter="{Binding ElementName=FormattingDataGrid}"
+                />
+        <Button Content="Assignment" HorizontalAlignment="Left" Margin="501,42,0,0" VerticalAlignment="Top" Width="152" Height="26"/>
+        <Button Content="-" HorizontalAlignment="Left" Margin="304,234,0,0" VerticalAlignment="Top" Width="57"/>
+        <Button x:Name="UpButton" 
+                Content="Up" 
+                HorizontalAlignment="Left" 
+                Margin="361,234,0,0" 
+                VerticalAlignment="Top" 
+                Width="57"
+                Command="{Binding MoveUp}"
+                CommandParameter="{Binding ElementName=FormattingDataGrid}"
+                />
+        <Button Content="Down" HorizontalAlignment="Left" Margin="418,234,0,0" VerticalAlignment="Top" Width="57"/>
+        <Button x:Name="AddButton" 
+                Content="+" 
+                HorizontalAlignment="Left" 
+                Margin="247,234,0,0" 
+                VerticalAlignment="Top" 
+                Width="57"
+                
+                />
+        <Button Content="-" HorizontalAlignment="Left" Margin="558,234,0,0" VerticalAlignment="Top" Width="57"/>
+        <Button Content="Up" HorizontalAlignment="Left" Margin="615,234,0,0" VerticalAlignment="Top" Width="57"/>
+        <Button Content="Down" HorizontalAlignment="Left" Margin="672,234,0,0" VerticalAlignment="Top" Width="57"/>
+        <Button Content="+" HorizontalAlignment="Left" Margin="501,234,0,0" VerticalAlignment="Top" Width="57"/>
+        <Button Content="Save" HorizontalAlignment="Left" Margin="653,42,0,0" VerticalAlignment="Top" Width="37" Height="26"/>
+        <Button Content="Load" HorizontalAlignment="Left" Margin="690,42,0,0" VerticalAlignment="Top" Width="39" Height="26"/>
+        <Button Content="Save"
+                HorizontalAlignment="Left" 
+                Margin="391,42,0,0" 
+                VerticalAlignment="Top"
+                Width="41" 
+                Height="26"
+                Command="{Binding SaveFormat}"/>
+        <Button Content="Load" HorizontalAlignment="Left" Margin="432,42,0,0" VerticalAlignment="Top" Width="43" Height="26"/>
+    </Grid>
+</Window>

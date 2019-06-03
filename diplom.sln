@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIChemShift", "UIChemShift\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Experiments", "Experiments\Experiments.csproj", "{E40B79D2-EA1D-4578-8C40-4EC77A2EE230}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIChemShift2", "UIChemShift2\UIChemShift2.csproj", "{B3C99E3D-DE29-422A-B9E0-F4063711F9EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{E40B79D2-EA1D-4578-8C40-4EC77A2EE230}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E40B79D2-EA1D-4578-8C40-4EC77A2EE230}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E40B79D2-EA1D-4578-8C40-4EC77A2EE230}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3C99E3D-DE29-422A-B9E0-F4063711F9EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3C99E3D-DE29-422A-B9E0-F4063711F9EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3C99E3D-DE29-422A-B9E0-F4063711F9EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3C99E3D-DE29-422A-B9E0-F4063711F9EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
