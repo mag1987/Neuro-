@@ -158,7 +158,7 @@ namespace UIChemShift2
         {
             _model.PropertyChanged += (s, e) => { RaisePropertyChanged(e.PropertyName); };
             GetDataACD = new DelegateCommand<DataGrid>(dg => {
-                _model.UpdateChemShifts();
+               // _model.UpdateChemShifts();
                 //RaisePropertyChanged("ChemShifts");
             });
             SaveData = new DelegateCommand<DataGrid>(dg => {

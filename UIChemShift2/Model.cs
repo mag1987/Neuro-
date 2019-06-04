@@ -24,8 +24,10 @@ namespace UIChemShift2
     public class Model : BindableBase
     {
         private ChemShiftProvider _provider;
-        private ObservableCollection<ChemShift> _chemShifts { get; set; }
-        public ObservableCollection<ChemShift> ChemShifts { get; set; }
+        public ObservableCollection<ChemShift> ChemShifts
+        {
+            get;set;
+        }
         public ObservableCollection<FormattedStrings> FormattedValues { get; set; }
 
         private FormattedStrings testFormatStrings;
@@ -73,8 +75,8 @@ namespace UIChemShift2
         public Model()
         {
             _provider = new ChemShiftProvider();
-            _chemShifts = new ObservableCollection<ChemShift>();
             ChemShifts = new ObservableCollection<ChemShift>();
+            
             FormattedValues = new ObservableCollection<FormattedStrings>();
 
             testFormatStrings = new FormattedStrings();
@@ -100,23 +102,15 @@ namespace UIChemShift2
             FormattedValues[0].Strings = sValues;
             RaisePropertyChanged("FormattedValues");
         }
-        public void UpdateChemShifts()
+        public void GetChemShifts()
         {
-            /*
-            if (_chemShifts != null)
-            {
-                _chemShifts.Clear();
-            }
-            */
-            _chemShifts.Clear();
+            ChemShifts.Clear();
             foreach (var shift in _provider.GetChemShiftsACD())
             {
-                _chemShifts.Add(
+                ChemShifts.Add(
                     new ChemShift(shift)
                     );
             }
-            ChemShifts = _chemShifts;
-            RaisePropertyChanged("ChemShifts");
         }
         public void SaveData()
         {

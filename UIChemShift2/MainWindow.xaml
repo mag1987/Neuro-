@@ -6,16 +6,15 @@
         xmlns:local="clr-namespace:UIChemShift2"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        DataContext="{StaticResource ViewModel}"
         >
-    <Grid>
+    <!-- DataContext="{StaticResource ViewModel}" -->
+        <Grid>
         <DataGrid x:Name="ChemShiftsDataGrid"
-                  
                   HorizontalAlignment="Left"
-                  Height="181" Margin="40,73,0,0"
-                  VerticalAlignment="Top" Width="166"
-                  DataContext="{Binding ChemShifts}"
-                  ItemsSource="{Binding}"
+                  Height="181" 
+                  Margin="40,73,0,0"
+                  VerticalAlignment="Top"
+                  Width="166"
                   />
         <Button x:Name="GetDataButton" 
                 Content="Get ACD data" 
@@ -23,8 +22,6 @@
                 Margin="40,42,0,0" 
                 VerticalAlignment="Top" 
                 Width="91"
-                Command="{Binding GetDataACD}"
-                
                 Height="26"
                 />
         <Button x:Name="SaveDataButton" 
@@ -33,7 +30,7 @@
                 Margin="131,42,0,0" 
                 VerticalAlignment="Top" 
                 Width="37"
-                Command="{Binding SaveData}" Height="26"/>
+                Height="26"/>
         <Button Content="Button"
                 HorizontalAlignment="Left" 
                 Margin="542,389,0,0" 
@@ -76,7 +73,8 @@
                 Margin="168,42,0,0" 
                 VerticalAlignment="Top" 
                 Width="38"
-                Command="{Binding LoadData}" Height="26"/>
+                Command="{Binding LoadData}" 
+                Height="26"/>
         <TextBox HorizontalAlignment="Left" Height="26" Margin="501,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="228"/>
         <DataGrid HorizontalAlignment="Left" Height="130" Margin="501,104,0,0" VerticalAlignment="Top" Width="228"/>
         <RichTextBox 
@@ -118,7 +116,6 @@
                 Margin="247,234,0,0" 
                 VerticalAlignment="Top" 
                 Width="57"
-                
                 />
         <Button Content="-" HorizontalAlignment="Left" Margin="558,234,0,0" VerticalAlignment="Top" Width="57"/>
         <Button Content="Up" HorizontalAlignment="Left" Margin="615,234,0,0" VerticalAlignment="Top" Width="57"/>

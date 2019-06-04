@@ -24,9 +24,25 @@ namespace UIChemShift2
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Model _model;
         public MainWindow()
         {
             InitializeComponent();
+
+            _model = new Model();
+            ChemShiftsDataGrid.DataContext = _model.ChemShifts;
+            ChemShiftsDataGrid.ItemsSource = _model.ChemShifts;
+
+            GetDataButton.Click += GetDataOnClick;
+            SaveDataButton.Click += SaveDataOnClick;
+        }
+        private void GetDataOnClick(object sender, RoutedEventArgs e)
+        {
+            _model.GetChemShifts();
+        }
+        private void SaveDataOnClick(object sender, RoutedEventArgs e)
+        {
+            _model.SaveDataFileDialog();
         }
         private void AddNewItemOnClick(object sender, RoutedEventArgs e)
         {
@@ -36,6 +52,8 @@ namespace UIChemShift2
             ((ObservableCollection<FormattedPart>)FormattingDataGrid.DataContext).Add(
                 new FormattedPart("noch einmal", false, true)
                 );
+                MessageBox.Show(_model.defaultFormat.Regex.ToString());
+            
         }
     }
 }
