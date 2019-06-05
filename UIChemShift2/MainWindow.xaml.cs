@@ -35,7 +35,15 @@ namespace UIChemShift2
 
             GetDataButton.Click += GetDataOnClick;
             SaveDataButton.Click += SaveDataOnClick;
+            LoadDataButton.Click += LoadDataButton_Click;
         }
+
+        private void LoadDataButton_Click(object sender, RoutedEventArgs e)
+        {
+            _model.LoadDataFileDialog();
+            ChemShiftsDataGrid.RaiseEvent(new RoutedEventArgs(DataContextChanged));
+        }
+
         private void GetDataOnClick(object sender, RoutedEventArgs e)
         {
             _model.GetChemShifts();
