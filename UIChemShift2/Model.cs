@@ -24,83 +24,28 @@ namespace UIChemShift2
     public class Model : BindableBase
     {
         private ChemShiftProvider _provider;
-        public ObservableCollection<ChemShift> ChemShifts
-        {
-            get;set;
-        }
-        public ObservableCollection<FormattedStrings> FormattedValues { get; set; }
 
-        private FormattedStrings testFormatStrings;
-        public ObservableCollection<FormattedPart> FormattedParts
-        {
-            get
-            {
-                return new ObservableCollection<FormattedPart>(testFormatStrings.Format.GroupsFormat);
-            }
-            set
-            {
-                testFormatStrings.Format.GroupsFormat = value.ToList();
-            }
-        }
-        public void MoveUp(ObservableCollection<FormattedPart> formattedParts, int index)
-        {
-            if (index >0)
-            {
-                formattedParts.Move(index, index-1);
-                /*
-                var t = formattedParts[index];
-                formattedParts[index] = formattedParts[index-1];
-                formattedParts[index-1] = t;
-                */
-            }
-            //RaisePropertyChanged("FormattedParts");
-        }
+        public ObservableCollection<ChemShift> ChemShifts { get; set; }
+        public Format Format { get; set; }
 
-        public RegexFormat<FormattedPart> defaultFormat = new RegexFormat<FormattedPart>
+        private FormattedStrings _formattedValues;
+        private FormattedStrings _formattedAssignments;
+        
+        public RegexFormatObservable defaultFormat = new RegexFormatObservable
         {
             Regex = new Regex(@"(?<entier>\d+)\.(?<fraction>\d+)"),
-            GroupsFormat = new List<FormattedPart>()
+            GroupsFormat = new ObservableCollection<FormattedPart>()
             {
                 new FormattedPart(){ GroupName = "entier" , Bold = true, Italic = true},
                 new FormattedPart(){ GroupName = "." , Bold = false, Italic = false},
                 new FormattedPart(){ GroupName = "fraction" , Bold = false, Italic = true},
             }
         };
-        /*
-        public void TestMethod()
-        {
-            MessageBox.Show("Hello");
-        }
-        */
         public Model()
         {
             _provider = new ChemShiftProvider();
             ChemShifts = new ObservableCollection<ChemShift>();
-            
-            FormattedValues = new ObservableCollection<FormattedStrings>();
-
-            testFormatStrings = new FormattedStrings();
-            testFormatStrings.Format = defaultFormat;
-
-            /*
-            ChemShifts = new ObservableCollection<ChemShift>()
-            {
-                new ChemShift("1.23","C1" ),
-                new ChemShift("2.56","C43" ),
-                new ChemShift("0.54","C6" )
-            };
-            */
-        }
-        public void GenerateForamttedValues()
-        {
-            List<string> sValues = new List<string>();
-            foreach (var item in ChemShifts)
-            {
-                sValues.Add(item.Value);
-            }
-            FormattedValues[0].Format = defaultFormat;
-            FormattedValues[0].Strings = sValues;
-            RaisePropertyChanged("FormattedValues");
+            Format = new Format(defaultFormat,defaultFormat);
         }
         public void GetChemShifts()
         {
@@ -137,14 +82,14 @@ namespace UIChemShift2
         public void SaveFormatFileDialog()
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(FormattedStrings));
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Format));
             Stream stream;
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 stream = saveFileDialog.OpenFile();
                 if (stream != null)
                 {
-                    xmlSerializer.Serialize(stream, testFormatStrings);
+                    xmlSerializer.Serialize(stream, Format);
                     stream.Close();
                 }
             }

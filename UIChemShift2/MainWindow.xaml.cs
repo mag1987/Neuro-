@@ -32,16 +32,24 @@ namespace UIChemShift2
             _model = new Model();
             ChemShiftsDataGrid.DataContext = _model.ChemShifts;
             ChemShiftsDataGrid.ItemsSource = _model.ChemShifts;
+            FormattingDataGrid.DataContext = _model.Format;
+            FormattingDataGrid.ItemsSource = _model.Format.ValuesFormat.GroupsFormat;
 
             GetDataButton.Click += GetDataOnClick;
             SaveDataButton.Click += SaveDataOnClick;
             LoadDataButton.Click += LoadDataButton_Click;
+            SaveFormatButton.Click += SaveFormatOnClick;
+        }
+
+        private void SaveFormatOnClick(object sender, RoutedEventArgs e)
+        {
+            _model.SaveFormatFileDialog();
         }
 
         private void LoadDataButton_Click(object sender, RoutedEventArgs e)
         {
             _model.LoadDataFileDialog();
-            ChemShiftsDataGrid.RaiseEvent(new RoutedEventArgs(DataContextChanged));
+            ChemShiftsDataGrid.ItemsSource = _model.ChemShifts;
         }
 
         private void GetDataOnClick(object sender, RoutedEventArgs e)

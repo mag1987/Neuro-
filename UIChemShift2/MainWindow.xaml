@@ -58,13 +58,11 @@
         DataContext="{Binding testCollection}"
         -->
         <DataGrid x:Name="FormattingDataGrid"
-                      HorizontalAlignment="Left"
+                  HorizontalAlignment="Left"
                   Height="130" 
                   Margin="247,104,0,0" 
                   VerticalAlignment="Top" 
                   Width="228"
-                  DataContext="{Binding formattedParts}"
-                  ItemsSource="{Binding}" 
                   >
         </DataGrid>
         <Button x:Name="LoadDataButton" 
@@ -122,13 +120,14 @@
         <Button Content="+" HorizontalAlignment="Left" Margin="501,234,0,0" VerticalAlignment="Top" Width="57"/>
         <Button Content="Save" HorizontalAlignment="Left" Margin="653,42,0,0" VerticalAlignment="Top" Width="37" Height="26"/>
         <Button Content="Load" HorizontalAlignment="Left" Margin="690,42,0,0" VerticalAlignment="Top" Width="39" Height="26"/>
-        <Button Content="Save"
+        <Button x:Name="SaveFormatButton"
+                Content="Save"
                 HorizontalAlignment="Left" 
                 Margin="391,42,0,0" 
                 VerticalAlignment="Top"
                 Width="41" 
                 Height="26"
-                Command="{Binding SaveFormat}"/>
+                />
         <Button Content="Load" HorizontalAlignment="Left" Margin="432,42,0,0" VerticalAlignment="Top" Width="43" Height="26"/>
     </Grid>
 </Window>
