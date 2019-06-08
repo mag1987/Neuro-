@@ -57,57 +57,37 @@ namespace UIChemShift2
                     );
             }
         }
-        public void SaveData()
-        {
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(ObservableCollection<ChemShift>));
-            FileStream fileStream = new FileStream("TestXML.xml",FileMode.Create);
-            xmlSerializer.Serialize(fileStream, ChemShifts);
-            fileStream.Close();
-        }
-        public void SaveDataFileDialog()
+        public void SaveFileDialog(object obj)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(ObservableCollection<ChemShift>));
+            XmlSerializer xmlSerializer = new XmlSerializer(obj.GetType());
             Stream stream;
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 stream = saveFileDialog.OpenFile();
                 if (stream != null)
                 {
-                    xmlSerializer.Serialize(stream, ChemShifts);
+                    xmlSerializer.Serialize(stream, obj);
                     stream.Close();
                 }
             }
         }
-        public void SaveFormatFileDialog()
+        public object LoadFileDialog(Type type)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Format));
-            Stream stream;
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                stream = saveFileDialog.OpenFile();
-                if (stream != null)
-                {
-                    xmlSerializer.Serialize(stream, Format);
-                    stream.Close();
-                }
-            }
-        }
-        public void LoadDataFileDialog()
-        {
+            object obj = new object();
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(ObservableCollection<ChemShift>));
+            XmlSerializer xmlSerializer = new XmlSerializer(type);
             Stream stream;
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 stream = openFileDialog.OpenFile();
                 if (stream != null)
                 {
-                    ChemShifts = (ObservableCollection<ChemShift>)xmlSerializer.Deserialize(stream);
+                    obj = xmlSerializer.Deserialize(stream);
                     stream.Close();
                 }
             }
+            return obj;
         }
     }
     public class ChemShift

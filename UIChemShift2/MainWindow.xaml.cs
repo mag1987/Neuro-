@@ -43,12 +43,13 @@ namespace UIChemShift2
 
         private void SaveFormatOnClick(object sender, RoutedEventArgs e)
         {
-            _model.SaveFormatFileDialog();
+            _model.SaveFileDialog(_model.Format);
         }
 
         private void LoadDataButton_Click(object sender, RoutedEventArgs e)
         {
-            _model.LoadDataFileDialog();
+            Type t = _model.ChemShifts.GetType();
+            _model.ChemShifts = (ObservableCollection<ChemShift>)_model.LoadFileDialog(t);
             ChemShiftsDataGrid.ItemsSource = _model.ChemShifts;
         }
 
@@ -58,7 +59,7 @@ namespace UIChemShift2
         }
         private void SaveDataOnClick(object sender, RoutedEventArgs e)
         {
-            _model.SaveDataFileDialog();
+            _model.SaveFileDialog(_model.ChemShifts);
         }
         private void AddNewItemOnClick(object sender, RoutedEventArgs e)
         {
