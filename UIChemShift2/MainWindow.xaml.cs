@@ -32,13 +32,43 @@ namespace UIChemShift2
             _model = new Model();
             ChemShiftsDataGrid.DataContext = _model.ChemShifts;
             ChemShiftsDataGrid.ItemsSource = _model.ChemShifts;
-            FormattingDataGrid.DataContext = _model.Format;
+            //FormattingDataGrid.DataContext = _model.Format;
             FormattingDataGrid.ItemsSource = _model.Format.ValuesFormat.GroupsFormat;
+            RegexTextBox.Text = _model.Format.ValuesFormat.RegexPattern;
+            PropertyComboBox.ItemsSource = _model.ChemShiftProperties;
 
             GetDataButton.Click += GetDataOnClick;
             SaveDataButton.Click += SaveDataOnClick;
             LoadDataButton.Click += LoadDataButton_Click;
             SaveFormatButton.Click += SaveFormatOnClick;
+            LoadFormatButton.Click += (s, e) => 
+            {
+                Type t = _model.Format.GetType();
+                _model.Format = (Format)_model.LoadFileDialog(t);
+                RegexTextBox.Text = _model.Format.ValuesFormat.RegexPattern;
+            };
+            RegexTextBox.LostFocus += (s,e) => 
+            {
+                _model.Format.ValuesFormat.RegexPattern = RegexTextBox.Text;
+            };
+            PropertyComboBox.SelectionChanged += (s, e) => 
+            {
+                switch (PropertyComboBox.SelectedItem)
+                {
+                    case "Value":
+                        FormattingDataGrid.ItemsSource = _model.Format.ValuesFormat.GroupsFormat;
+                        RegexTextBox.Text = _model.Format.ValuesFormat.RegexPattern;
+                        break;
+                    case "Assignment":
+                        FormattingDataGrid.ItemsSource = _model.Format.AssignmentFormat.GroupsFormat;
+                        RegexTextBox.Text = _model.Format.AssignmentFormat.RegexPattern;
+                        break;
+                }
+            };
+            InsertButton.Click += (s, e) => 
+            {
+                _model.InsertToWord();
+            };
         }
 
         private void SaveFormatOnClick(object sender, RoutedEventArgs e)
@@ -60,17 +90,6 @@ namespace UIChemShift2
         private void SaveDataOnClick(object sender, RoutedEventArgs e)
         {
             _model.SaveFileDialog(_model.ChemShifts);
-        }
-        private void AddNewItemOnClick(object sender, RoutedEventArgs e)
-        {
-            var t = (ObservableCollection<FormattedPart>)FormattingDataGrid.DataContext;
-            t.Add(new FormattedPart("another", true, false));
-            FormattingDataGrid.DataContext = t;
-            ((ObservableCollection<FormattedPart>)FormattingDataGrid.DataContext).Add(
-                new FormattedPart("noch einmal", false, true)
-                );
-                MessageBox.Show(_model.defaultFormat.Regex.ToString());
-            
         }
     }
 }

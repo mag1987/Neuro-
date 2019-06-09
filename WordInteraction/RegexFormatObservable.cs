@@ -6,7 +6,17 @@ namespace WordInteraction
 {
     public class RegexFormatObservable 
     {
-        public Regex Regex { get; set; }
+        private string _regexPattern;
+        public string RegexPattern
+        {
+            get { return _regexPattern; }
+            set
+            {
+                _regexPattern = value;
+                Regex = new Regex(_regexPattern);
+            }
+        }
+        public Regex Regex { get;  set; }
         public ObservableCollection<FormattedPart> GroupsFormat { get; set; }
 
         public RegexFormatObservable()
@@ -16,7 +26,7 @@ namespace WordInteraction
         }
         public RegexFormatObservable(string regex, params FormattedPart[] formatString)
         {
-            Regex = new Regex(regex);
+            RegexPattern = regex;
             GroupsFormat = new ObservableCollection<FormattedPart>();
             foreach (var item in formatString)
             {
