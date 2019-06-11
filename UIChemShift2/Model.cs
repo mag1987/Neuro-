@@ -40,44 +40,6 @@ namespace UIChemShift2
         }
         public ObservableCollection<ChemShift> ChemShifts { get; set; }
         public Format Format { get; set; }
-
-        private FormattedStrings _formattedValues
-        {
-            get
-            {
-                List<string> strings = new List<string>();
-                foreach (var item in ChemShifts)
-                {
-                    strings.Add(item.Value);
-                }
-                return new FormattedStrings(
-                    strings,
-                    new RegexFormat<FormattedPart>(
-                        Format.ValuesFormat.RegexPattern,
-                        Format.ValuesFormat.GroupsFormat.ToArray()
-                        )
-                    );
-            }
-        }
-        private FormattedStrings _formattedAssignments
-        {
-            get
-            {
-                List<string> strings = new List<string>();
-                foreach (var item in ChemShifts)
-                {
-                    strings.Add(item.Assignment);
-                }
-                return new FormattedStrings(
-                    strings,
-                    new RegexFormat<FormattedPart>(
-                        Format.AssignmentFormat.RegexPattern,
-                        Format.AssignmentFormat.GroupsFormat.ToArray()
-                        )
-                    );
-            }
-        }
-
         public RegexFormatObservable defaultFormatValue = new RegexFormatObservable
         {
             RegexPattern = @"(?<entier>\d+)\.(?<fraction>\d+)",
@@ -148,7 +110,21 @@ namespace UIChemShift2
         public void InsertToWord()
         {
             PrintToWord printToWord = new PrintToWord();
-            printToWord.AtCursor(_formattedValues, _formattedAssignments);
+            foreach (var cs in ChemShifts)
+            {
+                printToWord.AtCursor(
+                    new FormattedString(cs.Value,new RegexFormat<FormattedPart>()
+                    {
+                        Regex = Format.ValuesFormat.Regex,
+                        GroupsFormat = Format.ValuesFormat.GroupsFormat.ToList()
+                    }),
+                    new FormattedString(cs.Assignment, new RegexFormat<FormattedPart>()
+                    {
+                        Regex = Format.AssignmentFormat.Regex,
+                        GroupsFormat = Format.AssignmentFormat.GroupsFormat.ToList()
+                    })
+                    );
+            }
         }
     }
     public class ChemShift

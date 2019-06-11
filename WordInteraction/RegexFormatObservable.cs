@@ -33,5 +33,30 @@ namespace WordInteraction
                 GroupsFormat.Add(item);
             }
         }
+        public void Swap(int indexA, int indexB)
+        {
+            int max = GroupsFormat.Count;
+            if ((0 <= indexA && indexA < max)
+                && (0 <= indexB && indexB < max))
+            {
+                var t = GroupsFormat[indexA];
+                GroupsFormat[indexA] = GroupsFormat[indexB];
+                GroupsFormat[indexB] = t;
+            }
+        }
+        public void Up(int index)
+        {
+            if (index > 0)
+            {
+                Swap(index, index - 1);
+            }
+        }
+        public void Down(int index)
+        {
+            if (index < (GroupsFormat.Count - 1))
+            {
+                Swap(index, index + 1);
+            }
+        }
     }
 }

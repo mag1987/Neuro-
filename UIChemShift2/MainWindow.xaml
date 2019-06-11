@@ -53,7 +53,7 @@
                   Height="130" 
                   Margin="247,104,0,0" 
                   VerticalAlignment="Top" 
-                  Width="228"
+                  Width="185"
                   >
         </DataGrid>
         <Button x:Name="LoadDataButton" 
@@ -64,8 +64,9 @@
                 Width="38"
                 Height="26"/>
         <RichTextBox 
+            x:Name="PreviewRichTextBox" 
             HorizontalAlignment="Left" 
-            Height="84" Margin="501,42,0,0" 
+            Height="110" Margin="516,42,0,0" 
             VerticalAlignment="Top" Width="228">
             <FlowDocument>
                 <Paragraph>
@@ -76,19 +77,22 @@
         <Button x:Name="InsertButton"
                 Content="Insert to Word" 
                 HorizontalAlignment="Left" 
-                Margin="501,200,0,0" 
+                Margin="516,157,0,0" 
                 VerticalAlignment="Top" 
-                Width="228" Height="34"/>
+                Width="228" Height="36"/>
         <Button x:Name="UpButton" 
                 Content="Up" 
                 HorizontalAlignment="Left" 
-                Margin="361,234,0,0" 
+                Margin="437,104,0,0" 
                 VerticalAlignment="Top" 
-                Width="57"
-                Command="{Binding MoveUp}"
-                CommandParameter="{Binding ElementName=FormattingDataGrid}"
+                Width="38" Height="60"
                 />
-        <Button Content="Down" HorizontalAlignment="Left" Margin="418,234,0,0" VerticalAlignment="Top" Width="57"/>
+        <Button x:Name="DownButton" 
+                Content="Down"
+                HorizontalAlignment="Left"
+                Margin="437,169,0,0" 
+                VerticalAlignment="Top" 
+                Width="38" Height="65"/>
         <Button x:Name="SaveFormatButton"
                 Content="Save"
                 HorizontalAlignment="Left" 
@@ -103,5 +107,6 @@
                 Margin="432,42,0,0" 
                 VerticalAlignment="Top" 
                 Width="43" Height="26"/>
+        <Button Content="Save in Word" HorizontalAlignment="Left" Margin="516,198,0,0" VerticalAlignment="Top" Width="228" Height="36"/>
     </Grid>
 </Window>

@@ -47,9 +47,42 @@ namespace UIChemShift2
                 _model.Format = (Format)_model.LoadFileDialog(t);
                 RegexTextBox.Text = _model.Format.ValuesFormat.RegexPattern;
             };
+            UpButton.Click += (s, e) => 
+            {
+                switch (PropertyComboBox.SelectedItem)
+                {
+                    case "Value":
+                        _model.Format.ValuesFormat.Up(FormattingDataGrid.SelectedIndex);
+                        break;
+                    case "Assignment":
+                        _model.Format.AssignmentFormat.Up(FormattingDataGrid.SelectedIndex);
+                        break;
+                }
+            };
+            DownButton.Click += (s, e) => 
+            {
+                switch (PropertyComboBox.SelectedItem)
+                {
+                    case "Value":
+                        _model.Format.ValuesFormat.Down(FormattingDataGrid.SelectedIndex);
+                        break;
+                    case "Assignment":
+                        _model.Format.AssignmentFormat.Down(FormattingDataGrid.SelectedIndex);
+                        break;
+                }
+            };
             RegexTextBox.LostFocus += (s,e) => 
             {
-                _model.Format.ValuesFormat.RegexPattern = RegexTextBox.Text;
+                switch (PropertyComboBox.SelectedItem)
+                {
+                    case "Value":
+                        _model.Format.ValuesFormat.RegexPattern = RegexTextBox.Text;
+                        break;
+                    case "Assignment":
+                        _model.Format.AssignmentFormat.RegexPattern = RegexTextBox.Text;
+                        break;
+                }
+                
             };
             PropertyComboBox.SelectionChanged += (s, e) => 
             {
@@ -68,6 +101,21 @@ namespace UIChemShift2
             InsertButton.Click += (s, e) => 
             {
                 _model.InsertToWord();
+            };
+            PreviewRichTextBox.MouseMove += (s, e) => 
+            {
+                Paragraph p = new Paragraph();
+                Run first = new Run("Some first");
+                first.FontStyle = FontStyles.Italic;
+                Run second = new Run(" The second");
+                second.FontStyle = FontStyles.Normal;
+                second.FontSize = 15;
+                p.Inlines.Add(first);
+                p.Inlines.Add(second);
+
+                FlowDocument flowDocument = new FlowDocument();
+                flowDocument.Blocks.Add(p);
+                PreviewRichTextBox.Document = flowDocument;
             };
         }
 
