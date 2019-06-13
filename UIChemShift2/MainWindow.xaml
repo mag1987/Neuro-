@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UIChemShift2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow" Height="437" Width="521"
         >
     <!-- DataContext="{StaticResource ViewModel}" -->
     <Grid>
@@ -66,20 +66,20 @@
         <RichTextBox 
             x:Name="PreviewRichTextBox" 
             HorizontalAlignment="Left" 
-            Height="110" Margin="516,42,0,0" 
-            VerticalAlignment="Top" Width="228">
+            Height="60" Margin="40,258,0,0" 
+            VerticalAlignment="Top" Width="435">
             <FlowDocument>
-                <Paragraph>
-                    <Run Text="RichTextBox"/>
+                <Paragraph TextAlignment="Center">
+                    <Run Text="Preview" FontSize="20"/>
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
         <Button x:Name="InsertButton"
                 Content="Insert to Word" 
                 HorizontalAlignment="Left" 
-                Margin="516,157,0,0" 
+                Margin="259,337,0,0" 
                 VerticalAlignment="Top" 
-                Width="228" Height="36"/>
+                Width="216" Height="36"/>
         <Button x:Name="UpButton" 
                 Content="Up" 
                 HorizontalAlignment="Left" 
@@ -107,6 +107,6 @@
                 Margin="432,42,0,0" 
                 VerticalAlignment="Top" 
                 Width="43" Height="26"/>
-        <Button Content="Save in Word" HorizontalAlignment="Left" Margin="516,198,0,0" VerticalAlignment="Top" Width="228" Height="36"/>
+        <Button Content="Save in Word" HorizontalAlignment="Left" Margin="40,337,0,0" VerticalAlignment="Top" Width="214" Height="36"/>
     </Grid>
 </Window>

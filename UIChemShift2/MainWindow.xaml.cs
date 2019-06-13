@@ -104,6 +104,7 @@ namespace UIChemShift2
             };
             PreviewRichTextBox.MouseMove += (s, e) => 
             {
+                /*
                 Paragraph p = new Paragraph();
                 Run first = new Run("Some first");
                 first.FontStyle = FontStyles.Italic;
@@ -112,9 +113,23 @@ namespace UIChemShift2
                 second.FontSize = 15;
                 p.Inlines.Add(first);
                 p.Inlines.Add(second);
-
+                */
                 FlowDocument flowDocument = new FlowDocument();
-                flowDocument.Blocks.Add(p);
+                flowDocument.Blocks.Add(_model.Preview(
+                     new FormattedString(_model.ChemShifts[0].Value, new RegexFormat<FormattedPart>()
+                     {
+                         Regex = _model.Format.ValuesFormat.Regex,
+                         GroupsFormat = _model.Format.ValuesFormat.GroupsFormat.ToList()
+                     }),
+                    new FormattedString(_model.ChemShifts[0].Assignment, new RegexFormat<FormattedPart>()
+                    {
+                        Regex = _model.Format.AssignmentFormat.Regex,
+                        GroupsFormat = _model.Format.AssignmentFormat.GroupsFormat.ToList()
+                    })
+                    )
+                    );
+                flowDocument.FontSize = 40;
+                flowDocument.TextAlignment = TextAlignment.Center;
                 PreviewRichTextBox.Document = flowDocument;
             };
         }

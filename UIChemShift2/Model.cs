@@ -18,6 +18,8 @@ using System.IO;
 using System.Windows.Forms;
 using WindowTesting;
 using WordInteraction;
+using System.Windows.Documents;
+using System.Windows;
 
 namespace UIChemShift2
 {
@@ -125,6 +127,37 @@ namespace UIChemShift2
                     })
                     );
             }
+        }
+        public Paragraph Preview(params FormattedString[] formatStrings)
+        {
+            Paragraph p = new Paragraph();
+            foreach (var itemInput in formatStrings)
+            {
+                Regex _regex = itemInput.Format.Regex;
+                GroupCollection gc = _regex.Match(itemInput.String).Groups;
+                var gcNames = _regex.GetGroupNames();
+                foreach (var itemGroups in itemInput.Format.GroupsFormat)
+                {
+                    var isGroupName = from name in gcNames
+                                      where name == itemGroups.GroupName
+                                      select name;
+                    if (isGroupName.Count() != 0)
+                    {
+                        Run run = new Run(gc[isGroupName.First()].Value);
+                        run.FontStyle = itemGroups.Italic ? FontStyles.Italic : FontStyles.Normal;
+                        run.FontWeight = itemGroups.Bold ? FontWeights.Bold : FontWeights.Normal;
+                        p.Inlines.Add(run);
+                    }
+                    else
+                    {
+                        Run run = new Run(itemGroups.GroupName);
+                        run.FontStyle = itemGroups.Italic ? FontStyles.Italic : FontStyles.Normal;
+                        run.FontWeight = itemGroups.Bold ? FontWeights.Bold : FontWeights.Normal;
+                        p.Inlines.Add(run);
+                    }
+                }
+            }
+            return p;
         }
     }
     public class ChemShift
