@@ -102,6 +102,10 @@ namespace UIChemShift2
             {
                 _model.InsertToWord();
             };
+            SaveWordButton.Click += (s,e) => 
+            {
+                _model.SaveWord();
+            };
             PreviewRichTextBox.MouseMove += (s, e) => 
             {
                 /*
@@ -114,23 +118,26 @@ namespace UIChemShift2
                 p.Inlines.Add(first);
                 p.Inlines.Add(second);
                 */
-                FlowDocument flowDocument = new FlowDocument();
-                flowDocument.Blocks.Add(_model.Preview(
-                     new FormattedString(_model.ChemShifts[0].Value, new RegexFormat<FormattedPart>()
-                     {
-                         Regex = _model.Format.ValuesFormat.Regex,
-                         GroupsFormat = _model.Format.ValuesFormat.GroupsFormat.ToList()
-                     }),
-                    new FormattedString(_model.ChemShifts[0].Assignment, new RegexFormat<FormattedPart>()
-                    {
-                        Regex = _model.Format.AssignmentFormat.Regex,
-                        GroupsFormat = _model.Format.AssignmentFormat.GroupsFormat.ToList()
-                    })
-                    )
-                    );
-                flowDocument.FontSize = 40;
-                flowDocument.TextAlignment = TextAlignment.Center;
-                PreviewRichTextBox.Document = flowDocument;
+                if (_model.ChemShifts.Count != 0)
+                {
+                    FlowDocument flowDocument = new FlowDocument();
+                    flowDocument.Blocks.Add(_model.Preview(
+                         new FormattedString(_model.ChemShifts[0].Value, new RegexFormat<FormattedPart>()
+                         {
+                             Regex = _model.Format.ValuesFormat.Regex,
+                             GroupsFormat = _model.Format.ValuesFormat.GroupsFormat.ToList()
+                         }),
+                        new FormattedString(_model.ChemShifts[0].Assignment, new RegexFormat<FormattedPart>()
+                        {
+                            Regex = _model.Format.AssignmentFormat.Regex,
+                            GroupsFormat = _model.Format.AssignmentFormat.GroupsFormat.ToList()
+                        })
+                        )
+                        );
+                    flowDocument.FontSize = 40;
+                    flowDocument.TextAlignment = TextAlignment.Center;
+                    PreviewRichTextBox.Document = flowDocument;
+                }
             };
         }
 

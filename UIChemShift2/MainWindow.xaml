@@ -107,6 +107,11 @@
                 Margin="432,42,0,0" 
                 VerticalAlignment="Top" 
                 Width="43" Height="26"/>
-        <Button Content="Save in Word" HorizontalAlignment="Left" Margin="40,337,0,0" VerticalAlignment="Top" Width="214" Height="36"/>
+        <Button x:Name="SaveWordButton" 
+                Content="Save in Word" 
+                HorizontalAlignment="Left" 
+                Margin="40,337,0,0" 
+                VerticalAlignment="Top" 
+                Width="214" Height="36"/>
     </Grid>
 </Window>

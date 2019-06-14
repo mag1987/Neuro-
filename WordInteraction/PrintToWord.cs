@@ -14,6 +14,10 @@ namespace WordInteraction
         {
             app = (Application)Marshal.GetActiveObject("Word.Application");
         }
+        public PrintToWord(Application wordApp)
+        {
+            app = wordApp;
+        }
         public void AtCursor(params (string input, int bold, int italic)[] formatString)
         {
             foreach (var item in formatString)

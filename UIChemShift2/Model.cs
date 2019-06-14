@@ -21,6 +21,9 @@ using WordInteraction;
 using System.Windows.Documents;
 using System.Windows;
 
+using Microsoft.Office.Interop.Word;
+using System.Runtime.InteropServices;
+
 namespace UIChemShift2
 {
     public class Model : BindableBase
@@ -128,9 +131,37 @@ namespace UIChemShift2
                     );
             }
         }
-        public Paragraph Preview(params FormattedString[] formatStrings)
+        public void SaveWord()
         {
-            Paragraph p = new Paragraph();
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
+                word.Visible = false;
+                word.Application.Documents.Add(saveFileDialog.FileName);
+                PrintToWord printer = new PrintToWord(word);
+                foreach (var cs in ChemShifts)
+                {
+                    printer.AtCursor(
+                        new FormattedString(cs.Value, new RegexFormat<FormattedPart>()
+                        {
+                            Regex = Format.ValuesFormat.Regex,
+                            GroupsFormat = Format.ValuesFormat.GroupsFormat.ToList()
+                        }),
+                        new FormattedString(cs.Assignment, new RegexFormat<FormattedPart>()
+                        {
+                            Regex = Format.AssignmentFormat.Regex,
+                            GroupsFormat = Format.AssignmentFormat.GroupsFormat.ToList()
+                        })
+                        );
+                }
+                word.Application.ActiveDocument.Close(Microsoft.Office.Interop.Word.WdSaveOptions.wdSaveChanges);
+                word.Quit();
+            }
+        }
+        public System.Windows.Documents.Paragraph Preview(params FormattedString[] formatStrings)
+        {
+            System.Windows.Documents.Paragraph p = new System.Windows.Documents.Paragraph();
             foreach (var itemInput in formatStrings)
             {
                 Regex _regex = itemInput.Format.Regex;
