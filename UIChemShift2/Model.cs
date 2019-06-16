@@ -138,7 +138,7 @@ namespace UIChemShift2
             {
                 Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
                 word.Visible = false;
-                word.Application.Documents.Add(saveFileDialog.FileName);
+                word.Application.Documents.Add();
                 PrintToWord printer = new PrintToWord(word);
                 foreach (var cs in ChemShifts)
                 {
@@ -155,7 +155,8 @@ namespace UIChemShift2
                         })
                         );
                 }
-                word.Application.ActiveDocument.Close(Microsoft.Office.Interop.Word.WdSaveOptions.wdSaveChanges);
+                word.Application.ActiveDocument.SaveAs(saveFileDialog.FileName);
+                word.Application.ActiveDocument.Close();
                 word.Quit();
             }
         }
