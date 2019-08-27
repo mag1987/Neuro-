@@ -16,6 +16,7 @@ using WordInteraction;
 using Prism.Commands;
 using Prism.Mvvm;
 using System.Collections.ObjectModel;
+using System.Windows.Forms;
 
 namespace UIChemShift
 {
@@ -26,10 +27,14 @@ namespace UIChemShift
     {
         public MainWindow()
         {
-            
             InitializeComponent();
+            Button1.Click += (s,e)=>
+            {
+                HelpWindow help = new HelpWindow();
+                help.Show();
+            };
+
         }
-        
         private void AddNewItemOnClick(object sender, RoutedEventArgs e)
         {
             var t = (ObservableCollection<FormattedPart>)FormattingDataGrid.DataContext;
@@ -39,5 +44,6 @@ namespace UIChemShift
                 new FormattedPart("noch einmal",false,true)
                 );
         }
+        
     }
 }

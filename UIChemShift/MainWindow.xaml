@@ -134,5 +134,6 @@
                 Height="26"
                 Command="{Binding SaveFormat}"/>
         <Button Content="Load" HorizontalAlignment="Left" Margin="432,42,0,0" VerticalAlignment="Top" Width="43" Height="26"/>
+        <Button x:Name="Button1" Content="Help" HorizontalAlignment="Left" Margin="728,0,0,0" VerticalAlignment="Top" Width="64" Height="24"/>
     </Grid>
 </Window>
