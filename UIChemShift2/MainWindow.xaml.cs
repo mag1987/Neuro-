@@ -139,6 +139,16 @@ namespace UIChemShift2
                     PreviewRichTextBox.Document = flowDocument;
                 }
             };
+            HelpButton.Click += (s, e) =>
+            {
+                HelpWindow help = new HelpWindow();
+                help.Show();
+                HelpButton.IsEnabled = false;
+                help.Closing += (se, ev) =>
+                {
+                    HelpButton.IsEnabled = true;
+                };
+            };
         }
 
         private void SaveFormatOnClick(object sender, RoutedEventArgs e)

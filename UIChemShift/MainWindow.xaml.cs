@@ -28,12 +28,17 @@ namespace UIChemShift
         public MainWindow()
         {
             InitializeComponent();
+
             Button1.Click += (s,e)=>
             {
                 HelpWindow help = new HelpWindow();
                 help.Show();
+                Button1.IsEnabled = false;
+                help.Closing += (se, ev) =>
+                {
+                    Button1.IsEnabled = true;
+                };
             };
-
         }
         private void AddNewItemOnClick(object sender, RoutedEventArgs e)
         {

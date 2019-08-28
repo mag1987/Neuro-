@@ -113,5 +113,10 @@
                 Margin="40,337,0,0" 
                 VerticalAlignment="Top" 
                 Width="214" Height="36"/>
+        <Button x:Name="HelpButton"
+                Content="Help"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Width="40"/>
     </Grid>
 </Window>

@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 using System.Windows.Xps.Packaging;
 using System.Windows.Xps;
 
-namespace UIChemShift
+namespace UIChemShift2
 {
     /// <summary>
     /// Interaction logic for HelpWindow.xaml
@@ -24,7 +24,7 @@ namespace UIChemShift
         public HelpWindow()
         {
             InitializeComponent();
-            XpsDocument doc = new XpsDocument("..\\..\\ChemSpecReporterManual.xps",System.IO.FileAccess.Read);
+            XpsDocument doc = new XpsDocument("..\\..\\ChemSpecReporterManual.xps", System.IO.FileAccess.Read);
             HelpDocumentViewer.Document = doc.GetFixedDocumentSequence();
         }
     }

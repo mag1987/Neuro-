@@ -1,18 +1,16 @@
-﻿<Window x:Class="UIChemShift.HelpWindow"
+﻿<Window x:Name="HelpWindow1" x:Class="UIChemShift2.HelpWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:UIChemShift"
+        xmlns:local="clr-namespace:UIChemShift2"
         mc:Ignorable="d"
-        Title="HelpWindow" Height="450" Width="800">
+        Title="ChemSpecReporter User Manual" Height="450" Width="800">
     <Grid>
         <DocumentViewer x:Name="HelpDocumentViewer" 
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        Height="{Binding Path=Height}" 
-                        Width="{Binding Path=Width}">
-        </DocumentViewer>
-
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Stretch"
+            Height="{Binding Path=Height}" 
+            Width="{Binding Path=Width}"/>
     </Grid>
 </Window>
